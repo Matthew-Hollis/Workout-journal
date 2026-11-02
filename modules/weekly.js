@@ -4,7 +4,7 @@ function calc(s){const e=addDays(s,6),days=[...Array(7)].map((_,i)=>addDays(s,i)
   const d4=OS.apps.d4.stats,b=OS.apps.bible.stats,logged=days.filter(d=>POS.get('daily_logs',d)),done=logged.reduce((t,d)=>t+d4.score(d).done,0);
   const A=POS.rows('action_items'),inW=t=>{if(!t)return false;const l=new Date(t).toLocaleDateString('en-CA');return l>=s&&l<=e};
   const W=(typeof D!=='undefined'&&D&&D.sessions)||[],read=new Set(b.ents().filter(x=>x.date>=s&&x.date<=e).map(x=>x.date));
-  return{pct:logged.length?Math.round(done/(logged.length*4)*100):0,done,logged:logged.length,mins:b.minsBetween(s,e),readDays:read.size,streak:b.streak(),
+  return{pct:logged.length?Math.round(done/logged.reduce((t,d)=>t+d4.score(d).n,0)*100):0,done,logged:logged.length,mins:b.minsBetween(s,e),readDays:read.size,streak:b.streak(),
     closed:A.filter(a=>a.status==='done'&&inW(a.completed_at)).length,opened:A.filter(a=>a.status!=='discarded'&&a.status!=='review'&&inW(a.created_at)).length,
     workouts:W.filter(x=>x.date>=s&&x.date<=e).length}}
 function view(){const s=ws||weekStart(),c=calc(s),p=calc(addDays(s,-7)),isNow=s===weekStart();

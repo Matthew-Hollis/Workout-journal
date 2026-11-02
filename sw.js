@@ -1,4 +1,4 @@
-const C='wj-v8',F=['./','./index.html','./sync.js','./os.js','./modules/meetings.js','./modules/actions.js','./modules/bible.js','./modules/daily4.js','./modules/weekly.js','./manifest.json','./icon.svg','./exercises.json'];
+const C='wj-v9',F=['./','./index.html','./sync.js','./os.js','./modules/meetings.js','./modules/actions.js','./modules/bible.js','./modules/daily4.js','./modules/weekly.js','./manifest.json','./icon.svg','./exercises.json'];
 const LIB='https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.118.0/dist/umd/supabase.js';
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(C).then(cache=>Promise.all(F.map(async url=>{
