@@ -1,7 +1,18 @@
-# Workout Journal
+# Personal OS (Workout Journal)
 
-A single-page workout log that runs in the browser. Sessions, exercises, progress, and weigh-ins stay in local storage on this device. Use the Backup tab to export or restore a JSON file.
+Mobile PWA served from GitHub Pages: https://matthew-hollis.github.io/Workout-journal/
 
-Serve this folder with any static file server, or with GitHub Pages from the `main` branch, folder `/ (root)`. The project URL is [https://matthew-hollis.github.io/Workout-journal/](https://matthew-hollis.github.io/Workout-journal/).
+Modules: Workouts, Meeting Notes, Action Items, Bible & Meditation, Daily 4, Weekly Review.
 
-The manifest, service worker, icon, `start_url`, and `scope` use relative paths so the app works under the `/Workout-journal/` project path.
+## Data
+- Offline-first: every module keeps a local copy in `localStorage` and syncs privately to Supabase
+  (project `workout-journal`, ref `ptinyojagmcusrhuabah`) after email sign-in. RLS limits every row to its owner.
+- Workouts: local key `wj-data-v1` (never rename or clear it) synced as one JSON blob in `public.module_data` (module `workout`).
+- Row tables (pk `user_id, id`, soft delete via `deleted`, server-set `updated_at`):
+  `meeting_notes`, `action_items`, `bible_entries`, `reading_plans`, `daily_logs`. Local cache keys `pos-t-<table>`.
+- `plaud_import_state` holds the Plaud import watermark (server job only, no client access).
+
+## Code
+- `sync.js` sync core (`POS.register` for blob modules, `POS.table` for row tables). Only the publishable key lives here.
+- `os.js` shell: home tiles, routing, account card. `modules/*.js` one file per module, registered with `OS.reg`.
+- `sw.js` bump the cache name `C` on every release and list any new file in `F`.
