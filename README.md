@@ -1,4 +1,4 @@
-# Personal OS (Workout Journal)
+# Daybook
 
 Mobile PWA served from GitHub Pages: https://matthew-hollis.github.io/Workout-journal/
 

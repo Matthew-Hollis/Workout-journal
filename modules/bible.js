@@ -22,7 +22,7 @@ function trends(){const ws=weekStart();const wk=[...Array(8)].map((_,i)=>addDays
   qs('#app').innerHTML=`<div class="card"><div class="row"><div><p class="stat">${streak()}</p><p class="m">day streak</p></div><div><p class="stat">${days.filter(d=>have.has(d)).length}<span class="unit">/28</span></p><p class="m">days read, last 4 weeks</p></div></div>
 <div class="dots">${days.map(d=>`<span class="${have.has(d)?'on':''}" title="${d}"></span>`).join('')}</div></div>
 <div class="card"><h3>Minutes per week</h3>${bars(wk.map(s=>s.slice(5).replace('-','/')),wv,{unit:' min'})}</div>
-<div class="card"><h3>Minutes per month</h3>${bars(mo.map(d=>d.toLocaleDateString([],{month:'short'})),mv,{unit:' min',color:'#b59a6a'})}</div>`}
+<div class="card"><h3>Minutes per month</h3>${bars(mo.map(d=>d.toLocaleDateString([],{month:'short'})),mv,{unit:' min',color:'var(--accent-2)'})}</div>`}
 function plans(){const p=plan();const done=p?new Set(p.done||[]):null;
   qs('#app').innerHTML=(p?`<div class="card"><h3>${hx(p.name)}</h3><div class="prog"><i style="width:${p.items.length?Math.round(done.size/p.items.length*100):0}%"></i></div><p class="m" style="margin-top:6px">${done.size} of ${p.items.length} readings · started ${hx(fmtDay(p.start_date))}</p>
 <div class="list" style="margin-top:8px">${p.items.map((it,i)=>`<label class="tog plan"><span class="${done.has(i)?'donet':''}">${hx(it)}</span><input type="checkbox" ${done.has(i)?'checked':''} onchange="OSBib.mark(${i},this.checked)"></label>`).join('')}</div>

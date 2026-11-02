@@ -1,4 +1,4 @@
-/* Personal OS sync core: private per-user, per-module cloud storage in Supabase.
+/* Daybook sync core: private per-user, per-module cloud storage in Supabase.
    Each module keeps its own localStorage copy (offline cache, source of truth on device)
    and registers an adapter here. Cloud table: public.module_data (user_id, module, data, updated_at), RLS = own rows only.
    Two kinds of modules plug in:

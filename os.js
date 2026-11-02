@@ -1,4 +1,4 @@
-/* Personal OS shell: home tiles, routing, shared UI helpers and the account/sync card.
+/* Daybook shell: home tiles, routing, shared UI helpers and the account/sync card.
    A module registers with OS.reg(key,{title,brand,icon,tabs:[[view,label,icon]],render(view,param),tile()}).
    Names here avoid the workout script's globals ($, esc, today, chart). */
 (function(){
@@ -23,7 +23,7 @@ const ICON={home:ic('<path d="M4 11.5 12 5l8 6.5M6.5 10v8.5h11V10"/>'),
 // Simple inline SVG bar chart: values 0..max, labels optional
 function bars(labels,vals,o={}){const W=340,H=150,n=vals.length||1,mx=o.max||Math.max(1,...vals),bw=(W-8)/n;
   const b=vals.map((v,i)=>{const h=Math.max(v>0?3:0,(v/mx)*(H-38));const x=4+i*bw+bw*.14,w=bw*.72;
-    return`<rect x="${x.toFixed(1)}" y="${(H-22-h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="${Math.min(5,w/2).toFixed(1)}" fill="${o.color||'#8a9a58'}"><title>${hx(labels[i])}: ${v}${o.unit||''}</title></rect>`+
+    return`<rect x="${x.toFixed(1)}" y="${(H-22-h).toFixed(1)}" width="${w.toFixed(1)}" height="${h.toFixed(1)}" rx="${Math.min(5,w/2).toFixed(1)}" style="fill:${o.color||'var(--accent)'}"><title>${hx(labels[i])}: ${v}${o.unit||''}</title></rect>`+
     ((n<=14||i%Math.ceil(n/8)==0)?`<text x="${(x+w/2).toFixed(1)}" y="${H-6}" text-anchor="middle">${hx(labels[i])}</text>`:'')}).join('');
   return`<svg class="bars" viewBox="0 0 ${W} ${H}" role="img" aria-label="${hx(o.label||'chart')}"><text x="4" y="12" class="mx">${o.top||('max '+Math.round(mx)+(o.unit||''))}</text>${b}</svg>`}
 const empty=(t,m)=>`<div class="card"><h3>${hx(t)}</h3><p class="m">${hx(m)}</p></div>`;
@@ -31,7 +31,7 @@ const empty=(t,m)=>`<div class="card"><h3>${hx(t)}</h3><p class="m">${hx(m)}</p>
 const OS={apps:{},order:[],app:'home',view:null,param:null,qs,hx,dayStr,addDays,weekStart,fmtDay,ICON,bars,empty,
   reg(key,def){this.apps[key]=def;if(!this.order.includes(key))this.order.push(key)},
   show(app,view,param){const a=this.apps[app];if(!a)return;if(this.app!==app&&a.onOpen)a.onOpen();this.app=app;this.view=view||(a.tabs&&a.tabs[0]?a.tabs[0][0]:null);this.param=param??null;this.render();scrollTo(0,0)},
-  render(){const a=this.apps[this.app];qs('#brand').textContent=a.brand||'Personal OS';
+  render(){const a=this.apps[this.app];qs('#brand').textContent=a.brand||'Daybook';
     const t=(a.tabs||[]).find(x=>x[0]==this.view);qs('#ttl').textContent=(a.titles&&a.titles[this.view])||(t?t[1]:a.title);
     this.nav();a.render(this.view,this.param)},
   refresh(){const ae=document.activeElement;if(ae&&ae.matches&&ae.matches('input,textarea,select')&&qs('#app').contains(ae))return;this.render()},
@@ -44,7 +44,7 @@ const OS={apps:{},order:[],app:'home',view:null,param:null,qs,hx,dayStr,addDays,
 window.OS=OS;
 
 /* Home */
-OS.reg('home',{title:'Home',brand:'Personal OS',render(){
+OS.reg('home',{title:'Home',brand:'Daybook',render(){
   const tiles=OS.order.filter(k=>k!=='home').map(k=>{const a=OS.apps[k];let t={};try{t=a.tile?a.tile():{}}catch(e){}
     return`<button class="tile" onclick="OS.show('${k}')"><span class="tic">${a.icon}</span><span class="tt">${hx(a.title)}</span><span class="ts">${hx(t.stat??'')}</span><span class="tsub">${hx(t.sub??'')}</span></button>`}).join('');
   qs('#app').innerHTML=`<p class="m hello">${hx(new Date().toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'}))}</p><div class="tiles">${tiles}</div><div id="acct">${acct()}</div>`}});
@@ -64,7 +64,7 @@ async function sendLink(){const el=qs('#em');if(el)acctEmail=(el.value||'').repl
   localStorage.setItem('pos-email',acctEmail);acctMsg='Sending…';OS.render();try{await POS.sendLink(acctEmail);codeSent=true;acctMsg='<span class="ok">Check your email.</span> Tap the link, or type the code here if you installed the app on your home screen.'}catch(e){acctMsg='<span class="err">'+hx(e.message||'Could not send')+'</span>'}OS.render()}
 async function verifyCode(){const c=(qs('#otp')||{}).value||'';if(!c.trim())return;acctMsg='Checking…';try{await POS.verifyCode(acctEmail,c.trim());acctMsg='';codeSent=false}catch(e){acctMsg='<span class="err">'+hx(e.message||'Code did not work')+'</span>'}OS.render()}
 function exportAll(){const out={exported_at:new Date().toISOString(),workout:typeof D!=='undefined'?D:null,tables:{}};['meeting_notes','action_items','bible_entries','reading_plans','daily_logs'].forEach(t=>{out.tables[t]=POS.rows(t)});
-  const b=new Blob([JSON.stringify(out,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`personal-os-${dayStr()}.json`;a.click()}
+  const b=new Blob([JSON.stringify(out,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`daybook-${dayStr()}.json`;a.click()}
 function goAcct(){OS.show('home');setTimeout(()=>{const a=qs('#acct');a&&a.scrollIntoView({block:'start'})},30)}
 Object.assign(window,{exportAll,acct,sendLink,verifyCode,goAcct,syncLine});
 if(window.POS)POS.onStatus(st=>{const b=qs('#sync');if(b){b.className=st;b.querySelector('span').textContent=SL[st]||'Local'}
