@@ -13,6 +13,12 @@ body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 var(--sans);p
 header,main{position:relative;z-index:1}
 header{position:sticky;top:0;z-index:3;padding:calc(14px + env(safe-area-inset-top)) 20px 14px;background:rgba(11,12,10,.78);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border-bottom:1px solid var(--line)}
 .brand{margin:0;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--tan)}
+.hrow{display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+#sync{width:auto;min-height:32px;flex:none;display:inline-flex;align-items:center;gap:7px;padding:6px 12px;margin-bottom:2px;border-radius:999px;background:rgba(244,240,232,.06);border:1px solid var(--line);color:var(--muted);font-size:12px;font-weight:600}
+#sync i{width:8px;height:8px;border-radius:50%;background:#6f6a5f;flex:none}
+#sync.synced i{background:#8a9a58;box-shadow:0 0 0 3px rgba(138,154,88,.22)}#sync.syncing i{background:var(--tan);animation:pulse 1.2s ease-in-out infinite}#sync.error i{background:var(--red)}#sync.offline i{background:#9a8f7c}
+@keyframes pulse{50%{opacity:.35}}
+.ok{color:#b9c78f}.err{color:var(--red)}
 header h1{margin:2px 0 0;font-size:26px;font-weight:600;letter-spacing:-.02em}
 main{padding:12px 16px 8px}
 .card{background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.15);backdrop-filter:blur(16px) saturate(1.15);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.28);padding:14px;margin-bottom:8px;scroll-margin-top:96px}
@@ -76,13 +82,15 @@ nav button.on{color:#f3e6cc;background:rgba(181,154,106,.14)}
 <rect width="100%" height="100%" fill="url(#mc)"/>
 </svg>
 <div id="veil" aria-hidden="true"></div>
-<header><p class="brand">Workout Journal</p><h1 id="ttl">Log Workout</h1></header>
+<header><div class="hrow"><div><p class="brand">Workout Journal</p><h1 id="ttl">Log Workout</h1></div><button id="sync" class="loading" onclick="go('more')" aria-live="polite"><i></i><span>Local</span></button></div></header>
 <main id="app"></main>
 <nav id="nav"></nav>
+<script src="sync.js"></script>
 <script>
 const K='wj-data-v1';let D=JSON.parse(localStorage.getItem(K)||'null')||{sessions:[],library:[
 {n:'Walk',k:'cardio'},{n:'Stationary Bike',k:'cardio'},{n:'Goblet Squat',k:'strength'},{n:'Leg Press',k:'strength'},{n:'Chest Press',k:'strength'},{n:'Lat Pulldown',k:'strength'},{n:'Seated Row',k:'strength'},{n:'Dumbbell Shoulder Press',k:'strength'},{n:'Plank',k:'cardio'}],weights:[]};
-const save=()=>localStorage.setItem(K,JSON.stringify(D));const $=s=>document.querySelector(s);
+const save=()=>{localStorage.setItem(K,JSON.stringify(D));window.POS&&POS.schedule('workout')};
+const tomb=(kind,key)=>{D._del=D._del||{s:{},w:{},l:{}};(D._del[kind]=D._del[kind]||{})[key]=Date.now()};const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const today=()=>new Date().toLocaleDateString('en-CA');
 const tabs=[['log','Log'],['hist','History'],['lib','Exercises'],['prog','Progress'],['wt','Weight'],['more','Backup']];
@@ -141,19 +149,19 @@ const inputs=[...document.querySelectorAll('#app .set input')];if(inputs.length>
 function addSet(i){const p=cur.ex[i].sets.at(-1)||{};cur.ex[i].sets.push({a:p.a||'',b:p.b||''});R.log()}
 function finish(){if(!cur.ex.length&&!cur.notes){alert('Add an exercise or a note first.');return}
 cur.ex.forEach(e=>e.sets=e.sets.filter(t=>t.a!==''||t.b!==''));
-if(editId)D.sessions=D.sessions.map(x=>x.id==editId?cur:x);else D.sessions.push(cur);save();cur=null;editId=null;alert('Saved!');go('hist')}
+cur.u=Date.now();if(editId)D.sessions=D.sessions.map(x=>x.id==editId?cur:x);else D.sessions.push(cur);save();cur=null;editId=null;alert('Saved!');go('hist')}
 const vol=e=>e.c?0:e.sets.reduce((s,t)=>s+(+t.a||0)*(+t.b||0),0);
 const setChips=e=>e.sets.map(t=>`<span class="chip">${e.c?`${t.a||0} min${t.b?' · '+t.b+' mi':''}`:`${t.a} × ${t.b||0} lb`}</span>`).join('');
 R.hist=()=>{const L=[...D.sessions].sort((a,b)=>b.date.localeCompare(a.date));$('#app').innerHTML=L.length?L.map(s=>`<div class="card"><div class="exhead"><div><h3>${s.date}</h3><p class="m" style="margin-top:2px;text-transform:capitalize">${esc(s.type)}</p></div><span class="pill">Feel ${s.feel}/5</span></div>
 <div class="exlist">${s.ex.map(e=>`<div class="exrow"><div class="exname">${esc(e.n)}</div><div class="chips">${setChips(e)}</div></div>`).join('')}</div>
 ${s.notes?`<p class="m" style="margin-top:8px">${esc(s.notes)}</p>`:''}<div class="row" style="margin-top:14px"><button class="s" onclick="edit(${s.id})">Edit</button><button class="x" onclick="del(${s.id})">Delete</button></div></div>`).join(''):'<div class="card"><h3>No workouts yet</h3><p class="m">Log your first one from the Log tab.</p></div>'};
 function edit(id){cur=JSON.parse(JSON.stringify(D.sessions.find(s=>s.id==id)));editId=id;go('log')}
-function del(id){if(confirm('Delete this workout?')){D.sessions=D.sessions.filter(s=>s.id!=id);save();R.hist()}}
+function del(id){if(confirm('Delete this workout?')){D.sessions=D.sessions.filter(s=>s.id!=id);tomb('s',id);save();R.hist()}}
 function prs(){const P={};D.sessions.forEach(s=>s.ex.forEach(e=>{const p=P[e.n]=P[e.n]||{c:e.c,max:0,reps:0,vol:0,min:0,mi:0};
 e.sets.forEach(t=>{const a=+t.a||0,b=+t.b||0;if(e.c){p.min=Math.max(p.min,a);p.mi=Math.max(p.mi,b)}else{p.max=Math.max(p.max,b);p.reps=Math.max(p.reps,a)}});p.vol=Math.max(p.vol,vol(e))}));return P}
 R.lib=()=>{const P=prs();$('#app').innerHTML=`<div class="card"><h3>Add exercise</h3><label for="nn">Name</label><input id="nn" placeholder="Exercise name"><label for="nk">Tracking</label><select id="nk"><option value="strength">Strength (reps × weight)</option><option value="cardio">Cardio (minutes / miles)</option></select><button style="margin-top:14px" onclick="addLib()">Add to library</button></div>
-<div class="card list">${D.library.map((e,i)=>{const p=P[e.n];const detail=e.k+(p?(p.c?` · PR ${p.min} min, ${p.mi} mi`:` · PR ${p.max} lb, ${p.reps} reps, ${p.vol} lb volume`):' · no PRs yet');return`<div class="librow"><div class="grow"><div class="exname">${esc(e.n)}</div><div class="m">${esc(detail)}</div></div><button class="x" onclick="if(confirm('Remove from library?')){D.library.splice(${i},1);save();R.lib()}">Remove</button></div>`}).join('')}</div>`};
-function addLib(){const n=$('#nn').value.trim();if(!n)return;if(D.library.some(e=>e.n.toLowerCase()==n.toLowerCase())){alert('Already in library');return}D.library.push({n,k:$('#nk').value});save();R.lib()}
+<div class="card list">${D.library.map((e,i)=>{const p=P[e.n];const detail=e.k+(p?(p.c?` · PR ${p.min} min, ${p.mi} mi`:` · PR ${p.max} lb, ${p.reps} reps, ${p.vol} lb volume`):' · no PRs yet');return`<div class="librow"><div class="grow"><div class="exname">${esc(e.n)}</div><div class="m">${esc(detail)}</div></div><button class="x" onclick="if(confirm('Remove from library?')){tomb('l',String(D.library[${i}].n).toLowerCase());D.library.splice(${i},1);save();R.lib()}">Remove</button></div>`}).join('')}</div>`};
+function addLib(){const n=$('#nn').value.trim();if(!n)return;if(D.library.some(e=>e.n.toLowerCase()==n.toLowerCase())){alert('Already in library');return}D.library.push({n,k:$('#nk').value,a:Date.now()});save();R.lib()}
 function chart(id,labels,vals,unit){const c=document.getElementById(id),r=devicePixelRatio||1,W=c.clientWidth,H=200;c.width=W*r;c.height=H*r;const x=c.getContext('2d');x.scale(r,r);
 x.fillStyle='#c8bba6';x.font='12px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif';if(!vals.length){x.fillText('No data yet',10,100);return}
 const mx=Math.max(...vals)||1,mn=unit=='lb'?Math.min(...vals)*0.98:0,n=vals.length,bw=(W-40)/n;
@@ -167,13 +175,37 @@ function drawV(){const n=($('#ps')||{}).value;const pts=D.sessions.filter(s=>s.e
 R.wt=()=>{const L=[...D.weights].sort((a,b)=>a.date.localeCompare(b.date));const f=L[0],l=L.at(-1);
 $('#app').innerHTML=`<div class="card"><div class="row"><div><label for="wd">Date</label><input id="wd" type="date" value="${today()}"></div><div><label for="wv">Weight (lb)</label><input id="wv" inputmode="decimal"></div></div><button style="margin-top:14px" onclick="addW()">Log weight</button></div>
 ${L.length>1?`<div class="card"><p class="stat">${(l.w-f.w>0?'+':'')+(l.w-f.w).toFixed(1)} lb</p><p class="m" style="margin-top:4px">since ${f.date}</p></div>`:''}
-<div class="card"><h3>Trend</h3><canvas id="c3"></canvas></div>${L.length?`<div class="card list">${[...L].reverse().map(x=>`<div class="wrow"><span class="grow">${x.date}</span><b>${x.w} lb</b><button class="x" onclick="D.weights=D.weights.filter(y=>y.id!=${x.id});save();R.wt()">Remove</button></div>`).join('')}</div>`:''}`;
+<div class="card"><h3>Trend</h3><canvas id="c3"></canvas></div>${L.length?`<div class="card list">${[...L].reverse().map(x=>`<div class="wrow"><span class="grow">${x.date}</span><b>${x.w} lb</b><button class="x" onclick="D.weights=D.weights.filter(y=>y.id!=${x.id});tomb('w',${x.id});save();R.wt()">Remove</button></div>`).join('')}</div>`:''}`;
 const s=L.slice(-20);chart('c3',s.map(x=>x.date.slice(5)),s.map(x=>x.w),'lb')};
-function addW(){const w=parseFloat($('#wv').value);if(!w)return;D.weights.push({id:Date.now(),date:$('#wd').value,w});save();R.wt()}
-R.more=()=>{$('#app').innerHTML=`<div class="card"><h3>Backup</h3><p class="m">Your data lives only on this device. Export regularly.</p><button style="margin-top:14px" onclick="exp()">Export JSON</button><label for="imp">Import JSON (replaces current data)</label><input id="imp" type="file" accept=".json,application/json" onchange="imp(this.files[0])"></div>
+function addW(){const w=parseFloat($('#wv').value);if(!w)return;D.weights.push({id:Date.now(),date:$('#wd').value,w,u:Date.now()});save();R.wt()}
+R.more=()=>{$('#app').innerHTML=acct()+`<div class="card"><h3>Backup</h3><p class="m">${window.POS&&POS.user?'Synced privately to your account and kept on this device for offline use. Export now and then for an extra copy.':'Your data lives only on this device until you sign in. Export regularly.'}</p><button style="margin-top:14px" onclick="exp()">Export JSON</button><label for="imp">Import JSON (replaces current data)</label><input id="imp" type="file" accept=".json,application/json" onchange="imp(this.files[0])"></div>
 <div class="card"><p class="stat" style="font-size:22px">${D.sessions.length} · ${D.library.length} · ${D.weights.length}</p><p class="m" style="margin-top:4px">workouts, exercises, weigh-ins</p></div>`};
 function exp(){const b=new Blob([JSON.stringify(D,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`workout-journal-${today()}.json`;a.click()}
-function imp(f){if(!f)return;f.text().then(t=>{const j=JSON.parse(t);if(!j.sessions||!j.library)throw 0;if(confirm('Replace all current data?')){D={weights:[],...j};save();alert('Imported');go('hist')}}).catch(()=>alert('Not a valid backup file'))}
+function imp(f){if(!f)return;f.text().then(t=>{const j=JSON.parse(t);if(!j.sessions||!j.library)throw 0;if(confirm('Replace all current data? This also replaces your cloud copy.')){D={weights:[],...j};localStorage.setItem(K,JSON.stringify(D));window.POS&&POS.schedule('workout',{replace:true});alert('Imported');go('hist')}}).catch(()=>alert('Not a valid backup file'))}
+/* ---- Cloud sync: workout module adapter (see sync.js for the shared core) ---- */
+function mergeById(L,Rm,del){const m=new Map();(Rm||[]).forEach(x=>x&&m.set(String(x.id),x));(L||[]).forEach(x=>{if(!x)return;const k=String(x.id),o=m.get(k);if(!o||(x.u||0)>=(o.u||0))m.set(k,x)});
+const order=[...(Rm||[]).map(x=>x&&String(x.id)),...(L||[]).map(x=>x&&String(x.id))];return[...new Set(order)].filter(k=>k&&m.has(k)&&!(del&&del[k]&&del[k]>=(m.get(k).u||0))).map(k=>m.get(k))}
+function mergeDel(a,b){const o={};['s','w','l'].forEach(t=>{o[t]={...((b||{})[t]||{})};Object.entries((a||{})[t]||{}).forEach(([k,v])=>{o[t][k]=Math.max(v,o[t][k]||0)})});return o}
+function mergeWJ(L,Rm){L=L||{};Rm=Rm||{};const del=mergeDel(L._del,Rm._del),lib=new Map();
+[...(Rm.library||[]),...(L.library||[])].forEach(e=>{if(!e||!e.n)return;const k=String(e.n).toLowerCase();if(!lib.has(k)||(e.a||0)>(lib.get(k).a||0))lib.set(k,e)});
+const library=[...lib].filter(([k,e])=>!(del.l[k]&&del.l[k]>=(e.a||0))).map(([,e])=>e);
+return{...Rm,...L,sessions:mergeById(L.sessions,Rm.sessions,del.s),weights:mergeById(L.weights,Rm.weights,del.w),library,_del:del}}
+if(window.POS)POS.register({name:'workout',load:()=>D,store:d=>{D=d;localStorage.setItem(K,JSON.stringify(D))},merge:mergeWJ,
+onRemote:()=>{if(tab==='log'){fillPicker()}else R[tab]()}});
+const SL={loading:'Local',synced:'Synced',syncing:'Syncing',offline:'Offline','signed-out':'Sign in',error:'Sync issue',unavailable:'Local'};
+let acctMsg='',acctEmail=localStorage.getItem('pos-email')||'',codeSent=false;
+function acct(){const P=window.POS;if(!P)return'';const u=P.user;
+if(u)return`<div class="card"><h3>Account & sync</h3><p class="m">Signed in as <b>${esc(u.email)}</b>.</p><p class="m" style="margin-top:4px">${esc(syncLine())}</p><div class="row" style="margin-top:14px"><button class="s" onclick="POS.syncAll()">Sync now</button><button class="x" onclick="if(confirm('Sign out? Your data stays on this phone.'))POS.signOut().then(()=>R.more())">Sign out</button></div></div>`;
+return`<div class="card"><h3>Sign in to sync</h3><p class="m">Keep your journal private in your own cloud account and on every device. Your current logs upload the first time you sign in.</p>
+<label for="em">Email</label><input id="em" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" value="${esc(acctEmail)}" oninput="acctEmail=this.value.trim()">
+<button style="margin-top:14px" onclick="sendLink()">Email me a sign-in link</button>
+${codeSent?`<label for="otp">Or enter the code from the email</label><input id="otp" inputmode="numeric" autocomplete="one-time-code" placeholder="Code" maxlength="10"><button class="s" style="margin-top:8px" onclick="verifyCode()">Sign in with code</button>`:''}
+${acctMsg?`<p class="m" style="margin-top:10px">${acctMsg}</p>`:''}${P.state==='unavailable'?`<p class="m err" style="margin-top:10px">${esc(P.detail)}</p>`:''}</div>`}
+function syncLine(){const P=POS;if(P.state==='syncing')return'Syncing…';if(P.state==='offline')return'Offline. Changes are saved on this phone and will sync when you reconnect.';if(P.state==='error')return'Could not sync yet ('+(P.detail||'unknown error')+'). Retrying automatically.';return P.lastSync?'Last synced '+P.lastSync.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}):'Up to date.'}
+async function sendLink(){if(!/^\S+@\S+\.\S+$/.test(acctEmail)){acctMsg='<span class="err">Enter a valid email.</span>';R.more();return}
+localStorage.setItem('pos-email',acctEmail);acctMsg='Sending…';R.more();try{await POS.sendLink(acctEmail);codeSent=true;acctMsg='<span class="ok">Check your email.</span> Tap the link, or type the code here if you installed the app on your home screen.'}catch(e){acctMsg='<span class="err">'+esc(e.message||'Could not send')+'</span>'}R.more()}
+async function verifyCode(){const c=($('#otp')||{}).value||'';if(!c.trim())return;acctMsg='Checking…';try{await POS.verifyCode(acctEmail,c.trim());acctMsg='';codeSent=false}catch(e){acctMsg='<span class="err">'+esc(e.message||'Code did not work')+'</span>'}R.more()}
+if(window.POS)POS.onStatus(st=>{const b=$('#sync');if(b){b.className=st;b.querySelector('span').textContent=SL[st]||'Local'}if(tab==='more'&&!document.activeElement.matches('#em,#otp'))R.more()});
 nav();R.log();loadCatalog().then(()=>{if(tab==='log'&&$('#expick'))fillPicker()});
 if('serviceWorker'in navigator){navigator.serviceWorker.addEventListener('controllerchange',()=>{if(sessionStorage.getItem('wj-sw-reload'))return;sessionStorage.setItem('wj-sw-reload','1');location.reload()});navigator.serviceWorker.register('sw.js')}
 </script></body></html>
