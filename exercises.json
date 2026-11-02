@@ -1,0 +1,1295 @@
+{
+  "gym": "Iron 24 Fitness + Recovery, 802 S Lapeer Rd, Lake Orion, MI 48362",
+  "generated": "2026-11-01",
+  "notes": "equipmentStatus 'confirmed' = seen in Iron 24 Lake Orion photos/posts/reviews; 'assumed' = typical for this gym type, verify on site. beginnerFriendly tuned for a ~305 lb, sedentary beginner: supported/machine/low-impact moves = true; high-skill, high-impact, or bodyweight-heavy moves = false until base strength builds. Cardio-floor machines are confirmed only generically ('complete range of cardio equipment'); specific machine types are assumed.",
+  "categories": [
+    "Chest",
+    "Back",
+    "Shoulders",
+    "Arms",
+    "Legs",
+    "Core",
+    "Cardio",
+    "Mobility"
+  ],
+  "exercises": [
+    {
+      "id": "plate-loaded-chest-press",
+      "name": "Plate-Loaded Chest Press",
+      "category": "Chest",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "plate-loaded-incline-chest-press",
+      "name": "Plate-Loaded Incline Chest Press",
+      "category": "Chest",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "plate-loaded-decline-chest-press",
+      "name": "Plate-Loaded Decline Chest Press",
+      "category": "Chest",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "selectorized-chest-press-machine",
+      "name": "Selectorized Chest Press Machine",
+      "category": "Chest",
+      "equipment": "Chest press machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "pec-deck-machine-fly",
+      "name": "Pec Deck / Machine Fly",
+      "category": "Chest",
+      "equipment": "Pec deck machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-bench-press",
+      "name": "Dumbbell Bench Press",
+      "category": "Chest",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "incline-dumbbell-press",
+      "name": "Incline Dumbbell Press",
+      "category": "Chest",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-floor-press",
+      "name": "Dumbbell Floor Press",
+      "category": "Chest",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-fly",
+      "name": "Dumbbell Fly",
+      "category": "Chest",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "incline-dumbbell-fly",
+      "name": "Incline Dumbbell Fly",
+      "category": "Chest",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "barbell-bench-press",
+      "name": "Barbell Bench Press",
+      "category": "Chest",
+      "equipment": "Barbell + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "smith-machine-bench-press",
+      "name": "Smith Machine Bench Press",
+      "category": "Chest",
+      "equipment": "Smith machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "smith-machine-incline-press",
+      "name": "Smith Machine Incline Press",
+      "category": "Chest",
+      "equipment": "Smith machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-crossover-high-to-low",
+      "name": "Cable Crossover (High to Low)",
+      "category": "Chest",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-fly-low-to-high",
+      "name": "Cable Fly (Low to High)",
+      "category": "Chest",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "standing-cable-chest-press",
+      "name": "Standing Cable Chest Press",
+      "category": "Chest",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "incline-push-up-hands-on-bench",
+      "name": "Incline Push-Up (hands on bench)",
+      "category": "Chest",
+      "equipment": "Bodyweight + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "push-up",
+      "name": "Push-Up",
+      "category": "Chest",
+      "equipment": "Bodyweight",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "lat-pulldown-cable",
+      "name": "Lat Pulldown (Cable)",
+      "category": "Back",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "close-grip-lat-pulldown",
+      "name": "Close-Grip Lat Pulldown",
+      "category": "Back",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "plate-loaded-iso-lateral-row",
+      "name": "Plate-Loaded Iso-Lateral Row",
+      "category": "Back",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "plate-loaded-high-row",
+      "name": "Plate-Loaded High Row",
+      "category": "Back",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "plate-loaded-low-row",
+      "name": "Plate-Loaded Low Row",
+      "category": "Back",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "plate-loaded-pulldown",
+      "name": "Plate-Loaded Pulldown",
+      "category": "Back",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "seated-cable-row",
+      "name": "Seated Cable Row",
+      "category": "Back",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "single-arm-cable-row",
+      "name": "Single-Arm Cable Row",
+      "category": "Back",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "straight-arm-cable-pulldown",
+      "name": "Straight-Arm Cable Pulldown",
+      "category": "Back",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "chest-supported-dumbbell-row",
+      "name": "Chest-Supported Dumbbell Row",
+      "category": "Back",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "single-arm-dumbbell-row",
+      "name": "Single-Arm Dumbbell Row",
+      "category": "Back",
+      "equipment": "Dumbbells + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "barbell-bent-over-row",
+      "name": "Barbell Bent-Over Row",
+      "category": "Back",
+      "equipment": "Barbell",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "t-bar-row-landmine",
+      "name": "T-Bar Row (landmine)",
+      "category": "Back",
+      "equipment": "Barbell + Weight plates",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "assisted-pull-up-machine",
+      "name": "Assisted Pull-Up Machine",
+      "category": "Back",
+      "equipment": "Assisted pull-up/dip machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "pull-up",
+      "name": "Pull-Up",
+      "category": "Back",
+      "equipment": "Pull-up bar (half rack)",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "conventional-deadlift",
+      "name": "Conventional Deadlift",
+      "category": "Back",
+      "equipment": "Barbell + Deadlift platform",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "romanian-deadlift-barbell",
+      "name": "Romanian Deadlift (Barbell)",
+      "category": "Back",
+      "equipment": "Barbell + Deadlift platform",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "rack-pull",
+      "name": "Rack Pull",
+      "category": "Back",
+      "equipment": "Barbell + Half rack",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "back-extension-45-hyperextension",
+      "name": "Back Extension (45\u00b0 hyperextension)",
+      "category": "Back",
+      "equipment": "Back extension bench",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-shrug",
+      "name": "Dumbbell Shrug",
+      "category": "Back",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-face-pull",
+      "name": "Cable Face Pull",
+      "category": "Back",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "seated-dumbbell-shoulder-press",
+      "name": "Seated Dumbbell Shoulder Press",
+      "category": "Shoulders",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "plate-loaded-shoulder-press",
+      "name": "Plate-Loaded Shoulder Press",
+      "category": "Shoulders",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "selectorized-shoulder-press-machine",
+      "name": "Selectorized Shoulder Press Machine",
+      "category": "Shoulders",
+      "equipment": "Shoulder press machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "smith-machine-shoulder-press",
+      "name": "Smith Machine Shoulder Press",
+      "category": "Shoulders",
+      "equipment": "Smith machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "standing-barbell-overhead-press",
+      "name": "Standing Barbell Overhead Press",
+      "category": "Shoulders",
+      "equipment": "Barbell + Half rack",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "dumbbell-lateral-raise",
+      "name": "Dumbbell Lateral Raise",
+      "category": "Shoulders",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-lateral-raise",
+      "name": "Cable Lateral Raise",
+      "category": "Shoulders",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-front-raise",
+      "name": "Dumbbell Front Raise",
+      "category": "Shoulders",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-front-raise",
+      "name": "Cable Front Raise",
+      "category": "Shoulders",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "reverse-pec-deck-rear-delt-fly",
+      "name": "Reverse Pec Deck (Rear Delt Fly)",
+      "category": "Shoulders",
+      "equipment": "Pec deck machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "bent-over-dumbbell-rear-delt-fly",
+      "name": "Bent-Over Dumbbell Rear Delt Fly",
+      "category": "Shoulders",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "cable-rear-delt-fly",
+      "name": "Cable Rear Delt Fly",
+      "category": "Shoulders",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "arnold-press",
+      "name": "Arnold Press",
+      "category": "Shoulders",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "cable-upright-row",
+      "name": "Cable Upright Row",
+      "category": "Shoulders",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-biceps-curl",
+      "name": "Dumbbell Biceps Curl",
+      "category": "Arms",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "hammer-curl",
+      "name": "Hammer Curl",
+      "category": "Arms",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "incline-dumbbell-curl",
+      "name": "Incline Dumbbell Curl",
+      "category": "Arms",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-biceps-curl-bar",
+      "name": "Cable Biceps Curl (bar)",
+      "category": "Arms",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-rope-hammer-curl",
+      "name": "Cable Rope Hammer Curl",
+      "category": "Arms",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "preacher-curl-machine",
+      "name": "Preacher Curl Machine",
+      "category": "Arms",
+      "equipment": "Preacher curl machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "barbell-curl",
+      "name": "Barbell Curl",
+      "category": "Arms",
+      "equipment": "Barbell",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "concentration-curl",
+      "name": "Concentration Curl",
+      "category": "Arms",
+      "equipment": "Dumbbells + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-triceps-pushdown-bar",
+      "name": "Cable Triceps Pushdown (bar)",
+      "category": "Arms",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-rope-pushdown",
+      "name": "Cable Rope Pushdown",
+      "category": "Arms",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "overhead-cable-triceps-extension",
+      "name": "Overhead Cable Triceps Extension",
+      "category": "Arms",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "seated-dumbbell-overhead-triceps-extension",
+      "name": "Seated Dumbbell Overhead Triceps Extension",
+      "category": "Arms",
+      "equipment": "Dumbbells + Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-skull-crusher",
+      "name": "Dumbbell Skull Crusher",
+      "category": "Arms",
+      "equipment": "Dumbbells + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "assisted-dip-machine",
+      "name": "Assisted Dip Machine",
+      "category": "Arms",
+      "equipment": "Assisted pull-up/dip machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "bench-dip",
+      "name": "Bench Dip",
+      "category": "Arms",
+      "equipment": "Bodyweight + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "close-grip-smith-machine-press",
+      "name": "Close-Grip Smith Machine Press",
+      "category": "Arms",
+      "equipment": "Smith machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-wrist-curl",
+      "name": "Dumbbell Wrist Curl",
+      "category": "Arms",
+      "equipment": "Dumbbells + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "rogers-power-squat",
+      "name": "Rogers Power Squat",
+      "category": "Legs",
+      "equipment": "Rogers Power Squat",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "leg-press",
+      "name": "Leg Press",
+      "category": "Legs",
+      "equipment": "Leg press machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "plate-loaded-hack-squat",
+      "name": "Plate-Loaded Hack Squat",
+      "category": "Legs",
+      "equipment": "Plate-loaded machine",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "leg-extension",
+      "name": "Leg Extension",
+      "category": "Legs",
+      "equipment": "Leg extension machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "seated-leg-curl",
+      "name": "Seated Leg Curl",
+      "category": "Legs",
+      "equipment": "Leg curl machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "lying-leg-curl",
+      "name": "Lying Leg Curl",
+      "category": "Legs",
+      "equipment": "Leg curl machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "barbell-back-squat",
+      "name": "Barbell Back Squat",
+      "category": "Legs",
+      "equipment": "Barbell + Half rack",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "smith-machine-squat",
+      "name": "Smith Machine Squat",
+      "category": "Legs",
+      "equipment": "Smith machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "box-squat-to-bench",
+      "name": "Box Squat to Bench",
+      "category": "Legs",
+      "equipment": "Barbell + Half rack + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "goblet-squat",
+      "name": "Goblet Squat",
+      "category": "Legs",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-sit-to-stand-box-squat-to-bench",
+      "name": "Dumbbell Sit-to-Stand (box squat to bench)",
+      "category": "Legs",
+      "equipment": "Dumbbells + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-romanian-deadlift",
+      "name": "Dumbbell Romanian Deadlift",
+      "category": "Legs",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "barbell-hip-thrust",
+      "name": "Barbell Hip Thrust",
+      "category": "Legs",
+      "equipment": "Barbell + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "glute-bridge",
+      "name": "Glute Bridge",
+      "category": "Legs",
+      "equipment": "Bodyweight",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-step-up-low-box-bench",
+      "name": "Dumbbell Step-Up (low box/bench)",
+      "category": "Legs",
+      "equipment": "Dumbbells + Plyo box",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "split-squat-hold-support",
+      "name": "Split Squat (hold support)",
+      "category": "Legs",
+      "equipment": "Bodyweight",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "walking-lunge",
+      "name": "Walking Lunge",
+      "category": "Legs",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "bulgarian-split-squat",
+      "name": "Bulgarian Split Squat",
+      "category": "Legs",
+      "equipment": "Dumbbells + Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "cable-pull-through",
+      "name": "Cable Pull-Through",
+      "category": "Legs",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-glute-kickback",
+      "name": "Cable Glute Kickback",
+      "category": "Legs",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "hip-abduction-machine",
+      "name": "Hip Abduction Machine",
+      "category": "Legs",
+      "equipment": "Hip abductor/adductor machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "hip-adduction-machine",
+      "name": "Hip Adduction Machine",
+      "category": "Legs",
+      "equipment": "Hip abductor/adductor machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "standing-calf-raise-smith-or-machine",
+      "name": "Standing Calf Raise (Smith or machine)",
+      "category": "Legs",
+      "equipment": "Smith machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "seated-calf-raise",
+      "name": "Seated Calf Raise",
+      "category": "Legs",
+      "equipment": "Seated calf raise machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "leg-press-calf-raise",
+      "name": "Leg Press Calf Raise",
+      "category": "Legs",
+      "equipment": "Leg press machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "trap-bar-dumbbell-deadlift",
+      "name": "Trap-Bar / Dumbbell Deadlift",
+      "category": "Legs",
+      "equipment": "Dumbbells + Deadlift platform",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "dead-bug",
+      "name": "Dead Bug",
+      "category": "Core",
+      "equipment": "Bodyweight + Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "bird-dog",
+      "name": "Bird Dog",
+      "category": "Core",
+      "equipment": "Bodyweight + Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "forearm-plank-knees-or-toes",
+      "name": "Forearm Plank (knees or toes)",
+      "category": "Core",
+      "equipment": "Bodyweight + Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "side-plank-knees",
+      "name": "Side Plank (knees)",
+      "category": "Core",
+      "equipment": "Bodyweight + Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "pallof-press",
+      "name": "Pallof Press",
+      "category": "Core",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-woodchop-high-to-low",
+      "name": "Cable Woodchop (high to low)",
+      "category": "Core",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-kneeling-crunch",
+      "name": "Cable Kneeling Crunch",
+      "category": "Core",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "ab-crunch-machine",
+      "name": "Ab Crunch Machine",
+      "category": "Core",
+      "equipment": "Ab crunch machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "rotary-torso-machine",
+      "name": "Rotary Torso Machine",
+      "category": "Core",
+      "equipment": "Rotary torso machine",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "dumbbell-suitcase-carry",
+      "name": "Dumbbell Suitcase Carry",
+      "category": "Core",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "farmer-s-carry",
+      "name": "Farmer's Carry",
+      "category": "Core",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "captain-s-chair-knee-raise",
+      "name": "Captain's Chair Knee Raise",
+      "category": "Core",
+      "equipment": "Captain's chair / dip station",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "hanging-knee-raise",
+      "name": "Hanging Knee Raise",
+      "category": "Core",
+      "equipment": "Pull-up bar (half rack)",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "decline-bench-sit-up",
+      "name": "Decline Bench Sit-Up",
+      "category": "Core",
+      "equipment": "Adjustable bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "stability-ball-crunch",
+      "name": "Stability Ball Crunch",
+      "category": "Core",
+      "equipment": "Stability ball",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "russian-twist-dumbbell",
+      "name": "Russian Twist (dumbbell)",
+      "category": "Core",
+      "equipment": "Dumbbells + Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "medicine-ball-slam",
+      "name": "Medicine Ball Slam",
+      "category": "Core",
+      "equipment": "Medicine ball",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "treadmill-incline-walk",
+      "name": "Treadmill Incline Walk",
+      "category": "Cardio",
+      "equipment": "Treadmill",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "treadmill-walk-flat",
+      "name": "Treadmill Walk (flat)",
+      "category": "Cardio",
+      "equipment": "Treadmill",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "treadmill-jog-walk-intervals",
+      "name": "Treadmill Jog/Walk Intervals",
+      "category": "Cardio",
+      "equipment": "Treadmill",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "recumbent-bike",
+      "name": "Recumbent Bike",
+      "category": "Cardio",
+      "equipment": "Recumbent bike",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "upright-bike",
+      "name": "Upright Bike",
+      "category": "Cardio",
+      "equipment": "Exercise bike",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "spin-indoor-cycle",
+      "name": "Spin / Indoor Cycle",
+      "category": "Cardio",
+      "equipment": "Exercise bike",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "elliptical",
+      "name": "Elliptical",
+      "category": "Cardio",
+      "equipment": "Elliptical",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "stair-climber-stepmill",
+      "name": "Stair Climber / StepMill",
+      "category": "Cardio",
+      "equipment": "Stair climber",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "jacob-s-ladder",
+      "name": "Jacob's Ladder",
+      "category": "Cardio",
+      "equipment": "Jacob's Ladder",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "rowing-machine",
+      "name": "Rowing Machine",
+      "category": "Cardio",
+      "equipment": "Rowing machine",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "arc-trainer-cross-trainer",
+      "name": "Arc Trainer / Cross-Trainer",
+      "category": "Cardio",
+      "equipment": "Elliptical",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "sled-push",
+      "name": "Sled Push",
+      "category": "Cardio",
+      "equipment": "Push sled + Turf",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "battle-ropes",
+      "name": "Battle Ropes",
+      "category": "Cardio",
+      "equipment": "Battle ropes",
+      "equipmentStatus": "assumed",
+      "type": "cardio",
+      "beginnerFriendly": false
+    },
+    {
+      "id": "dumbbell-farmer-s-walk-intervals",
+      "name": "Dumbbell Farmer's Walk Intervals",
+      "category": "Cardio",
+      "equipment": "Dumbbells",
+      "equipmentStatus": "confirmed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cable-circuit-light-continuous",
+      "name": "Cable Circuit (light, continuous)",
+      "category": "Cardio",
+      "equipment": "Cable station",
+      "equipmentStatus": "confirmed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "foam-roll-quads-it-band",
+      "name": "Foam Roll: Quads / IT Band",
+      "category": "Mobility",
+      "equipment": "Foam roller",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "foam-roll-upper-back",
+      "name": "Foam Roll: Upper Back",
+      "category": "Mobility",
+      "equipment": "Foam roller",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "cat-cow",
+      "name": "Cat-Cow",
+      "category": "Mobility",
+      "equipment": "Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "child-s-pose",
+      "name": "Child's Pose",
+      "category": "Mobility",
+      "equipment": "Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "hip-flexor-stretch-half-kneeling",
+      "name": "Hip Flexor Stretch (half-kneeling)",
+      "category": "Mobility",
+      "equipment": "Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "hamstring-stretch-supine-strap-band",
+      "name": "Hamstring Stretch (supine, strap/band)",
+      "category": "Mobility",
+      "equipment": "Mat + Resistance band",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "figure-4-glute-stretch-seated-on-bench",
+      "name": "Figure-4 Glute Stretch (seated on bench)",
+      "category": "Mobility",
+      "equipment": "Flat bench",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "doorway-rack-pec-stretch",
+      "name": "Doorway / Rack Pec Stretch",
+      "category": "Mobility",
+      "equipment": "Half rack",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "thoracic-open-book",
+      "name": "Thoracic Open Book",
+      "category": "Mobility",
+      "equipment": "Mat",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "band-pull-apart",
+      "name": "Band Pull-Apart",
+      "category": "Mobility",
+      "equipment": "Resistance band",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "calf-stretch-wall-rack",
+      "name": "Calf Stretch (wall/rack)",
+      "category": "Mobility",
+      "equipment": "Bodyweight",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "shoulder-dislocate-band-pvc",
+      "name": "Shoulder Dislocate (band/PVC)",
+      "category": "Mobility",
+      "equipment": "Resistance band",
+      "equipmentStatus": "assumed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "ankle-dorsiflexion-rock",
+      "name": "Ankle Dorsiflexion Rock",
+      "category": "Mobility",
+      "equipment": "Bodyweight",
+      "equipmentStatus": "confirmed",
+      "type": "strength",
+      "beginnerFriendly": true
+    },
+    {
+      "id": "infrared-sauna-session-recovery",
+      "name": "Infrared Sauna Session (recovery)",
+      "category": "Mobility",
+      "equipment": "Infrared sauna",
+      "equipmentStatus": "confirmed",
+      "type": "cardio",
+      "beginnerFriendly": true
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 <meta name="theme-color" content="#111418"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.svg">
 <title>Workout Journal</title>
 <style>
-:root{--bg:#111418;--card:#1b2028;--b:#2a313c;--t:#e8ecf1;--m:#8b95a5;--a:#4ade80;--d:#f87171}
+:root{--bg:#111418;--card:#1b2028;--b:#2a313c;--t:#e8ecf1;--m:#8b95a5;--a:#4ade80;--d:#f87171;color-scheme:dark}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:17px -apple-system,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 calc(80px + env(safe-area-inset-bottom))}
 header{padding:16px;font-size:22px;font-weight:700}main{padding:0 12px}
 .card{background:var(--card);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:12px}
@@ -16,6 +16,9 @@ nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0b0e12;borde
 nav button{background:none;color:var(--m);border-radius:0;font-size:13px;min-height:64px;font-weight:600}nav button.on{color:var(--a)}
 .chip{display:inline-block;background:#2a313c;border-radius:20px;padding:10px 14px;margin:4px;min-height:44px}
 .m{color:var(--m);font-size:14px}h3{margin:4px 0 8px}canvas{width:100%;height:200px}.hide{display:none}
+label.tog{display:flex;align-items:center;gap:12px;min-height:48px;margin:8px 0;color:var(--t);font-size:17px}
+label.tog input{width:28px;height:28px;min-height:28px;padding:0;flex:none;accent-color:var(--a)}
+select option,select optgroup{background:#0d1014;color:var(--t)}
 </style></head><body>
 <header id="ttl">Log Workout</header><main id="app"></main>
 <nav id="nav"></nav>
@@ -26,7 +29,8 @@ const save=()=>localStorage.setItem(K,JSON.stringify(D));const $=s=>document.que
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const today=()=>new Date().toLocaleDateString('en-CA');
 const tabs=[['log','Log'],['hist','History'],['lib','Exercises'],['prog','Progress'],['wt','Weight'],['more','Backup']];
-let tab='log',cur=null,editId=null;
+let tab='log',cur=null,editId=null,pickQ='',pickBeg=true;
+let CATALOG={categories:['Chest','Back','Shoulders','Arms','Legs','Core','Cardio','Mobility'],exercises:[]};
 function nav(){$('#nav').innerHTML=tabs.map(([k,l])=>`<button class="${k==tab?'on':''}" onclick="go('${k}')">${l}</button>`).join('')}
 function go(t){tab=t;nav();$('#ttl').textContent=tabs.find(x=>x[0]==t)[1]=='Log'?'Log Workout':tabs.find(x=>x[0]==t)[1];R[t]();scrollTo(0,0)}
 const isC=n=>(D.library.find(e=>e.n==n)||{}).k=='cardio';
@@ -35,15 +39,39 @@ const R={};
 R.log=()=>{cur=cur||blank();const s=cur;$('#app').innerHTML=`
 <div class="card"><div class="row"><div><label>Date</label><input type="date" value="${s.date}" onchange="cur.date=this.value"></div>
 <div><label>Type</label><select onchange="cur.type=this.value">${['strength','cardio','walk','mixed','other'].map(t=>`<option ${t==s.type?'selected':''}>${t}</option>`).join('')}</select></div></div></div>
-<div class="card"><h3>Quick add</h3>${D.library.map((e,i)=>`<button class="chip s" style="width:auto" onclick="addEx(${i})">+ ${esc(e.n)}</button>`).join('')}</div>
+<div class="card"><h3>Add exercise</h3>
+<label for="exq">Search</label><input id="exq" placeholder="Search name or equipment" autocomplete="off" value="${esc(pickQ)}" oninput="pickQ=this.value;fillPicker()">
+<label class="tog" for="exbeg"><input id="exbeg" type="checkbox" ${pickBeg?'checked':''} onchange="pickBeg=this.checked;fillPicker()">Beginner-friendly only</label>
+<label for="expick">Exercise</label><select id="expick" onchange="pickEx()"></select>
+<p class="m" id="excount"></p></div>
 ${s.ex.map((e,i)=>`<div class="card"><div class="row"><h3>${esc(e.n)}</h3><button class="x" style="flex:0" onclick="cur.ex.splice(${i},1);R.log()">Remove</button></div>
 <div class="g3 m"><span>${e.c?'Minutes':'Reps'}</span><span>${e.c?'Miles':'Weight lb'}</span><span></span><span></span></div>
 ${e.sets.map((t,j)=>`<div class="g3"><input inputmode="decimal" value="${t.a??''}" oninput="cur.ex[${i}].sets[${j}].a=this.value"><input inputmode="decimal" value="${t.b??''}" oninput="cur.ex[${i}].sets[${j}].b=this.value"><span class="m">Set ${j+1}</span><button class="x" onclick="cur.ex[${i}].sets.splice(${j},1);R.log()">✕</button></div>`).join('')}
 <button class="s" style="margin-top:8px" onclick="addSet(${i})">+ Add set</button></div>`).join('')}
 <div class="card"><label>How it felt (1 = rough, 5 = great)</label><div class="row">${[1,2,3,4,5].map(n=>`<button class="${n==s.feel?'':'s'}" onclick="cur.feel=${n};R.log()">${n}</button>`).join('')}</div>
 <label>Notes</label><textarea oninput="cur.notes=this.value">${esc(s.notes)}</textarea></div>
-<button onclick="finish()">${editId?'Update':'Save'} workout</button>${editId?'<button class="s" style="margin-top:8px" onclick="cur=null;editId=null;R.log()">Cancel edit</button>':''}`};
-function addEx(i){const e=D.library[i];const c=e.k=='cardio';cur.ex.push({n:e.n,c,sets:[{a:'',b:''}]});R.log();scrollTo(0,document.body.scrollHeight)}
+<button onclick="finish()">${editId?'Update':'Save'} workout</button>${editId?'<button class="s" style="margin-top:8px" onclick="cur=null;editId=null;R.log()">Cancel edit</button>':''}`;fillPicker()};
+function loadCatalog(){return fetch('exercises.json').then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{if(j&&Array.isArray(j.exercises))CATALOG=j}).catch(()=>{})}
+function fillPicker(){const sel=$('#expick');if(!sel)return;const q=pickQ.trim().toLowerCase();
+const list=CATALOG.exercises||[],names=new Set(list.map(e=>String(e.name).toLowerCase()));
+const cats=(CATALOG.categories&&CATALOG.categories.length?CATALOG.categories:['Chest','Back','Shoulders','Arms','Legs','Core','Cardio','Mobility']);
+const hit=e=>!q||(e.name+' '+(e.equipment||'')+' '+(e.category||'')).toLowerCase().includes(q);
+const groups=[];let shown=0;
+cats.forEach(cat=>{const items=list.filter(e=>e.category===cat&&(!pickBeg||e.beginnerFriendly===true)&&hit(e));if(!items.length)return;shown+=items.length;
+groups.push(`<optgroup label="${esc(cat)}">${items.map(e=>`<option value="c:${esc(e.id)}">${esc(e.name)} · ${esc(e.equipment||'')}</option>`).join('')}</optgroup>`)});
+const known=new Set(cats);const extra=list.filter(e=>!known.has(e.category)&&(!pickBeg||e.beginnerFriendly===true)&&hit(e));
+[...new Set(extra.map(e=>e.category))].forEach(cat=>{const items=extra.filter(e=>e.category===cat);shown+=items.length;
+groups.push(`<optgroup label="${esc(cat)}">${items.map(e=>`<option value="c:${esc(e.id)}">${esc(e.name)} · ${esc(e.equipment||'')}</option>`).join('')}</optgroup>`)});
+const customs=(D.library||[]).filter(e=>e&&e.n&&!names.has(String(e.n).toLowerCase())&&(!q||String(e.n).toLowerCase().includes(q)));
+let html='<option value="">Choose an exercise</option>'+groups.join('');
+if(customs.length){shown+=customs.length;html+=`<optgroup label="My exercises">${customs.map(e=>`<option value="u:${esc(encodeURIComponent(e.n))}">${esc(e.n)} · Custom</option>`).join('')}</optgroup>`}
+if(!shown)html+='<option value="" disabled>No matches</option>';
+sel.innerHTML=html;const c=$('#excount');if(c)c.textContent=list.length?(shown?shown+' exercise'+(shown===1?'':'s'):'No matches'):'Exercise list did not load. Custom exercises still work.'}
+function pickEx(){const v=$('#expick').value;if(!v)return;let name,cardio;
+if(v.startsWith('c:')){const ex=(CATALOG.exercises||[]).find(e=>e.id===v.slice(2));if(!ex)return;name=ex.name;cardio=ex.type==='cardio'}
+else if(v.startsWith('u:')){let n;try{n=decodeURIComponent(v.slice(2))}catch(err){return}const lib=(D.library||[]).find(e=>e.n===n);if(!lib)return;name=lib.n;cardio=lib.k==='cardio'}
+else return;cur=cur||blank();cur.ex.push({n:name,c:cardio,sets:[{a:'',b:''}]});R.log();
+const inputs=[...document.querySelectorAll('#app .g3 input')];if(inputs.length>=2){inputs[inputs.length-2].focus({preventScroll:true});inputs[inputs.length-2].closest('.card').scrollIntoView({block:'center'})}}
 function addSet(i){const p=cur.ex[i].sets.at(-1)||{};cur.ex[i].sets.push({a:p.a||'',b:p.b||''});R.log()}
 function finish(){if(!cur.ex.length&&!cur.notes){alert('Add an exercise or a note first.');return}
 cur.ex.forEach(e=>e.sets=e.sets.filter(t=>t.a!==''||t.b!==''));
@@ -79,5 +107,6 @@ R.more=()=>{$('#app').innerHTML=`<div class="card"><h3>Backup</h3><p class="m">Y
 <div class="card m">${D.sessions.length} workouts · ${D.library.length} exercises · ${D.weights.length} weigh-ins</div>`};
 function exp(){const b=new Blob([JSON.stringify(D,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`workout-journal-${today()}.json`;a.click()}
 function imp(f){if(!f)return;f.text().then(t=>{const j=JSON.parse(t);if(!j.sessions||!j.library)throw 0;if(confirm('Replace all current data?')){D={weights:[],...j};save();alert('Imported');go('hist')}}).catch(()=>alert('Not a valid backup file'))}
-nav();R.log();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+nav();R.log();loadCatalog().then(()=>{if(tab==='log'&&$('#expick'))fillPicker()});
+if('serviceWorker'in navigator){navigator.serviceWorker.addEventListener('controllerchange',()=>{if(sessionStorage.getItem('wj-sw-reload'))return;sessionStorage.setItem('wj-sw-reload','1');location.reload()});navigator.serviceWorker.register('sw.js')}
 </script></body></html>
