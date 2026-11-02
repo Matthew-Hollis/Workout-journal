@@ -1,25 +1,62 @@
 <!doctype html><html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#111418"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.svg">
+<meta name="theme-color" content="#0b0c0a"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.svg">
 <title>Workout Journal</title>
 <style>
-:root{--bg:#111418;--card:#1b2028;--b:#2a313c;--t:#e8ecf1;--m:#8b95a5;--a:#4ade80;--d:#f87171;color-scheme:dark}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:17px -apple-system,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 calc(80px + env(safe-area-inset-bottom))}
-header{padding:16px;font-size:22px;font-weight:700}main{padding:0 12px}
-.card{background:var(--card);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:12px}
-input,select,textarea,button{font:inherit;color:var(--t);background:#0d1014;border:1px solid var(--b);border-radius:10px;padding:12px;min-height:48px;width:100%}
-textarea{min-height:70px}label{display:block;color:var(--m);font-size:14px;margin:10px 0 4px}
-button{background:var(--a);color:#06240f;font-weight:700;border:0;cursor:pointer}button.s{background:#2a313c;color:var(--t)}button.x{background:transparent;color:var(--d);width:auto;min-height:40px;padding:6px 10px}
+:root{--bg:#0b0c0a;--card:rgba(18,20,16,.88);--b:rgba(181,154,106,.55);--t:#e7e2d6;--m:#c2b49c;--a:#b59a6a;--g:#5b6b3a;--d:#e08a7a;--display:'Oswald','Arial Narrow',Impact,'Haettenschweiler','Franklin Gothic Medium',sans-serif;--mono:ui-monospace,'SFMono-Regular',Consolas,'Liberation Mono',monospace;color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--t);font:17px/1.35 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
+#camo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
+header,main,nav{position:relative;z-index:1}
+header{padding:12px 16px 10px;font-family:var(--display);font-size:22px;font-weight:700;font-stretch:condensed;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid rgba(181,154,106,.4)}
+main{padding:8px 12px}
+.card{position:relative;background:
+linear-gradient(var(--a),var(--a)) left 6px top 6px/14px 2px no-repeat,
+linear-gradient(var(--a),var(--a)) left 6px top 6px/2px 14px no-repeat,
+linear-gradient(var(--a),var(--a)) right 6px top 6px/14px 2px no-repeat,
+linear-gradient(var(--a),var(--a)) right 6px top 6px/2px 14px no-repeat,
+linear-gradient(var(--a),var(--a)) left 6px bottom 6px/14px 2px no-repeat,
+linear-gradient(var(--a),var(--a)) left 6px bottom 6px/2px 14px no-repeat,
+linear-gradient(var(--a),var(--a)) right 6px bottom 6px/14px 2px no-repeat,
+linear-gradient(var(--a),var(--a)) right 6px bottom 6px/2px 14px no-repeat,
+var(--card);
+border:1px solid rgba(91,107,58,.85);border-radius:3px;padding:12px;margin-bottom:8px}
+input,select,textarea,button{font:inherit;color:var(--t);background:#10120e;border:1px solid #6a5e4c;border-radius:2px;padding:12px;min-height:48px;width:100%}
+textarea{min-height:56px}label{display:block;color:var(--m);font-family:var(--display);font-size:13px;font-stretch:condensed;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:8px 0 4px}
+button{background:var(--a);color:#1a140c;font-family:var(--display);font-weight:700;font-stretch:condensed;letter-spacing:.08em;text-transform:uppercase;border:1px solid #d4bc8a;cursor:pointer}
+button.s{background:#1c2118;color:var(--t);border-color:var(--g)}
+button.x{background:transparent;color:var(--d);border-color:transparent;width:auto;min-height:44px;padding:8px 10px;letter-spacing:.06em}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #d4bc8a;outline-offset:2px}
+input:focus,select:focus,textarea:focus{border-color:var(--a);box-shadow:0 0 0 2px rgba(181,154,106,.4)}
+::placeholder{color:#b7aa96;opacity:1}
 .row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.g3{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;align-items:center;margin-top:6px}
-nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0b0e12;border-top:1px solid var(--b);padding-bottom:env(safe-area-inset-bottom)}
-nav button{background:none;color:var(--m);border-radius:0;font-size:13px;min-height:64px;font-weight:600}nav button.on{color:var(--a)}
-.chip{display:inline-block;background:#2a313c;border-radius:20px;padding:10px 14px;margin:4px;min-height:44px}
-.m{color:var(--m);font-size:14px}h3{margin:4px 0 8px}canvas{width:100%;height:200px}.hide{display:none}
-label.tog{display:flex;align-items:center;gap:12px;min-height:48px;margin:8px 0;color:var(--t);font-size:17px}
+nav{position:fixed;bottom:0;left:0;right:0;z-index:2;display:flex;background:rgba(11,12,10,.94);border-top:1px solid rgba(181,154,106,.45);padding-bottom:env(safe-area-inset-bottom)}
+nav button{background:none;color:#b7aa96;border:0;border-radius:0;font-family:var(--display);font-size:10px;letter-spacing:.04em;line-height:1.15;min-height:64px;font-weight:700;padding:8px 2px}
+nav button.on{color:#d4bc8a;box-shadow:inset 0 -3px 0 var(--g)}
+.m{color:var(--m);font-size:14px}h3{margin:0 0 6px;font-family:var(--display);font-size:16px;font-weight:700;font-stretch:condensed;letter-spacing:.07em;text-transform:uppercase}
+.num,input[inputmode="decimal"],input[type="date"]{font-family:var(--mono);letter-spacing:0;font-variant-numeric:tabular-nums}
+canvas{width:100%;height:200px}.hide{display:none}
+label.tog{display:flex;align-items:center;gap:12px;min-height:48px;margin:8px 0;color:var(--t);font-size:16px;letter-spacing:.06em}
 label.tog input{width:28px;height:28px;min-height:28px;padding:0;flex:none;accent-color:var(--a)}
-select option,select optgroup{background:#0d1014;color:var(--t)}
+select option,select optgroup{background:#10120e;color:var(--t)}
+select optgroup{color:#d4bc8a}
 </style></head><body>
+<svg id="camo" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+<defs><pattern id="mc" width="480" height="480" patternUnits="userSpaceOnUse">
+<rect width="480" height="480" fill="#0b0c0a"/>
+<ellipse cx="70" cy="90" rx="130" ry="58" fill="#1a1e14" transform="rotate(-22 70 90)"/>
+<ellipse cx="250" cy="40" rx="100" ry="42" fill="#2c2820" opacity=".55" transform="rotate(18 250 40)"/>
+<ellipse cx="410" cy="130" rx="120" ry="50" fill="#141910" transform="rotate(26 410 130)"/>
+<ellipse cx="120" cy="230" rx="110" ry="46" fill="#3a342c" opacity=".38" transform="rotate(-14 120 230)"/>
+<ellipse cx="300" cy="250" rx="140" ry="52" fill="#1c2418" transform="rotate(8 300 250)"/>
+<ellipse cx="430" cy="330" rx="90" ry="40" fill="#242018" opacity=".6" transform="rotate(-8 430 330)"/>
+<ellipse cx="80" cy="380" rx="120" ry="48" fill="#12160f" transform="rotate(16 80 380)"/>
+<ellipse cx="240" cy="420" rx="100" ry="36" fill="#2a261c" opacity=".45" transform="rotate(-20 240 420)"/>
+<ellipse cx="180" cy="150" rx="46" ry="22" fill="#10140e"/>
+</pattern></defs>
+<rect width="100%" height="100%" fill="url(#mc)"/>
+</svg>
 <header id="ttl">Log Workout</header><main id="app"></main>
 <nav id="nav"></nav>
 <script>
@@ -45,8 +82,8 @@ R.log=()=>{cur=cur||blank();const s=cur;$('#app').innerHTML=`
 <label for="expick">Exercise</label><select id="expick" onchange="pickEx()"></select>
 <p class="m" id="excount"></p></div>
 ${s.ex.map((e,i)=>`<div class="card"><div class="row"><h3>${esc(e.n)}</h3><button class="x" style="flex:0" onclick="cur.ex.splice(${i},1);R.log()">Remove</button></div>
-<div class="g3 m"><span>${e.c?'Minutes':'Reps'}</span><span>${e.c?'Miles':'Weight lb'}</span><span></span><span></span></div>
-${e.sets.map((t,j)=>`<div class="g3"><input inputmode="decimal" value="${t.a??''}" oninput="cur.ex[${i}].sets[${j}].a=this.value"><input inputmode="decimal" value="${t.b??''}" oninput="cur.ex[${i}].sets[${j}].b=this.value"><span class="m">Set ${j+1}</span><button class="x" onclick="cur.ex[${i}].sets.splice(${j},1);R.log()">✕</button></div>`).join('')}
+<div class="g3 m num"><span>${e.c?'Minutes':'Reps'}</span><span>${e.c?'Miles':'Weight lb'}</span><span></span><span></span></div>
+${e.sets.map((t,j)=>`<div class="g3"><input inputmode="decimal" value="${t.a??''}" oninput="cur.ex[${i}].sets[${j}].a=this.value"><input inputmode="decimal" value="${t.b??''}" oninput="cur.ex[${i}].sets[${j}].b=this.value"><span class="m num">Set ${j+1}</span><button class="x" onclick="cur.ex[${i}].sets.splice(${j},1);R.log()">✕</button></div>`).join('')}
 <button class="s" style="margin-top:8px" onclick="addSet(${i})">+ Add set</button></div>`).join('')}
 <div class="card"><label>How it felt (1 = rough, 5 = great)</label><div class="row">${[1,2,3,4,5].map(n=>`<button class="${n==s.feel?'':'s'}" onclick="cur.feel=${n};R.log()">${n}</button>`).join('')}</div>
 <label>Notes</label><textarea oninput="cur.notes=this.value">${esc(s.notes)}</textarea></div>
@@ -78,7 +115,7 @@ cur.ex.forEach(e=>e.sets=e.sets.filter(t=>t.a!==''||t.b!==''));
 if(editId)D.sessions=D.sessions.map(x=>x.id==editId?cur:x);else D.sessions.push(cur);save();cur=null;editId=null;alert('Saved!');go('hist')}
 const vol=e=>e.c?0:e.sets.reduce((s,t)=>s+(+t.a||0)*(+t.b||0),0);
 R.hist=()=>{const L=[...D.sessions].sort((a,b)=>b.date.localeCompare(a.date));$('#app').innerHTML=L.length?L.map(s=>`<div class="card"><div class="row"><h3>${s.date} · ${s.type}</h3><span class="m" style="flex:0;white-space:nowrap">Feel ${s.feel}/5</span></div>
-${s.ex.map(e=>`<div><b>${esc(e.n)}</b> <span class="m">${e.sets.map(t=>e.c?`${t.a||0} min${t.b?' / '+t.b+' mi':''}`:`${t.a}×${t.b||0}`).join(', ')}</span></div>`).join('')}
+${s.ex.map(e=>`<div><b>${esc(e.n)}</b> <span class="m num">${e.sets.map(t=>e.c?`${t.a||0} min${t.b?' / '+t.b+' mi':''}`:`${t.a}×${t.b||0}`).join(', ')}</span></div>`).join('')}
 ${s.notes?`<p class="m">${esc(s.notes)}</p>`:''}<div class="row"><button class="s" onclick="edit(${s.id})">Edit</button><button class="x" onclick="del(${s.id})">Delete</button></div></div>`).join(''):'<div class="card m">No workouts yet. Log your first one!</div>'};
 function edit(id){cur=JSON.parse(JSON.stringify(D.sessions.find(s=>s.id==id)));editId=id;go('log')}
 function del(id){if(confirm('Delete this workout?')){D.sessions=D.sessions.filter(s=>s.id!=id);save();R.hist()}}
@@ -88,10 +125,10 @@ R.lib=()=>{const P=prs();$('#app').innerHTML=`<div class="card"><h3>Add exercise
 ${D.library.map((e,i)=>{const p=P[e.n];return`<div class="card"><div class="row"><h3>${esc(e.n)}</h3><button class="x" style="flex:0" onclick="if(confirm('Remove from library?')){D.library.splice(${i},1);save();R.lib()}">Remove</button></div><div class="m">${e.k}${p?(p.c?` · PR: ${p.min} min, ${p.mi} mi`:` · PR: ${p.max} lb top weight, ${p.reps} reps, ${p.vol} lb best volume`):' · no PRs yet'}</div></div>`}).join('')}`};
 function addLib(){const n=$('#nn').value.trim();if(!n)return;if(D.library.some(e=>e.n.toLowerCase()==n.toLowerCase())){alert('Already in library');return}D.library.push({n,k:$('#nk').value});save();R.lib()}
 function chart(id,labels,vals,unit){const c=document.getElementById(id),r=devicePixelRatio||1,W=c.clientWidth,H=200;c.width=W*r;c.height=H*r;const x=c.getContext('2d');x.scale(r,r);
-x.fillStyle='#8b95a5';x.font='11px system-ui';if(!vals.length){x.fillText('No data yet',10,100);return}
+x.fillStyle='#c2b49c';x.font='11px ui-monospace,monospace';if(!vals.length){x.fillText('No data yet',10,100);return}
 const mx=Math.max(...vals)||1,mn=unit=='lb'?Math.min(...vals)*0.98:0,n=vals.length,bw=(W-40)/n;
-vals.forEach((v,i)=>{const h=(v-mn)/(mx-mn||1)*(H-50)+4;x.fillStyle='#4ade80';x.fillRect(30+i*bw+2,H-24-h,Math.max(bw-4,2),h);
-if(n<=12){x.fillStyle='#8b95a5';x.fillText(labels[i],30+i*bw+2,H-8)}});x.fillStyle='#e8ecf1';x.fillText(`max ${Math.round(mx)} ${unit}`,30,12)}
+vals.forEach((v,i)=>{const h=(v-mn)/(mx-mn||1)*(H-50)+4;x.fillStyle='#8a9a58';x.fillRect(30+i*bw+2,H-24-h,Math.max(bw-4,2),h);
+if(n<=12){x.fillStyle='#c2b49c';x.fillText(labels[i],30+i*bw+2,H-8)}});x.fillStyle='#e7e2d6';x.fillText(`max ${Math.round(mx)} ${unit}`,30,12)}
 function wk(d){const t=new Date(d+'T12:00');t.setDate(t.getDate()-((t.getDay()+6)%7));return t.toLocaleDateString('en-CA')}
 R.prog=()=>{const names=[...new Set(D.sessions.flatMap(s=>s.ex.filter(e=>!e.c).map(e=>e.n)))];
 $('#app').innerHTML=`<div class="card"><h3>Workouts per week</h3><canvas id="c1"></canvas></div><div class="card"><h3>Volume per exercise</h3><select id="ps" onchange="drawV()">${names.map(n=>`<option>${esc(n)}</option>`).join('')}</select><canvas id="c2"></canvas><p class="m">Volume = reps × weight, summed per session.</p></div>`;
@@ -100,7 +137,7 @@ function drawV(){const n=($('#ps')||{}).value;const pts=D.sessions.filter(s=>s.e
 R.wt=()=>{const L=[...D.weights].sort((a,b)=>a.date.localeCompare(b.date));const f=L[0],l=L.at(-1);
 $('#app').innerHTML=`<div class="card"><div class="row"><div><label>Date</label><input type="date" id="wd" value="${today()}"></div><div><label>Weight (lb)</label><input id="wv" inputmode="decimal"></div></div><button style="margin-top:10px" onclick="addW()">Log weight</button></div>
 ${L.length>1?`<div class="card"><b>${(l.w-f.w>0?'+':'')+(l.w-f.w).toFixed(1)} lb</b> <span class="m">since ${f.date}</span></div>`:''}
-<div class="card"><h3>Trend</h3><canvas id="c3"></canvas></div>${[...L].reverse().map(x=>`<div class="card row"><span>${x.date}</span><b>${x.w} lb</b><button class="x" style="flex:0" onclick="D.weights=D.weights.filter(y=>y.id!=${x.id});save();R.wt()">✕</button></div>`).join('')}`;
+<div class="card"><h3>Trend</h3><canvas id="c3"></canvas></div>${[...L].reverse().map(x=>`<div class="card row"><span>${x.date}</span><b class="num">${x.w} lb</b><button class="x" style="flex:0" onclick="D.weights=D.weights.filter(y=>y.id!=${x.id});save();R.wt()">✕</button></div>`).join('')}`;
 const s=L.slice(-20);chart('c3',s.map(x=>x.date.slice(5)),s.map(x=>x.w),'lb')};
 function addW(){const w=parseFloat($('#wv').value);if(!w)return;D.weights.push({id:Date.now(),date:$('#wd').value,w});save();R.wt()}
 R.more=()=>{$('#app').innerHTML=`<div class="card"><h3>Backup</h3><p class="m">Your data lives only on this device. Export regularly.</p><button onclick="exp()">Export JSON</button><label>Import JSON (replaces current data)</label><input type="file" accept=".json,application/json" onchange="imp(this.files[0])"></div>
