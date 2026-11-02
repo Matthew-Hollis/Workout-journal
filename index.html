@@ -4,60 +4,80 @@
 <meta name="theme-color" content="#0b0c0a"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.svg">
 <title>Workout Journal</title>
 <style>
-:root{--bg:#0b0c0a;--card:rgba(18,20,16,.88);--b:rgba(181,154,106,.55);--t:#e7e2d6;--m:#c2b49c;--a:#b59a6a;--g:#5b6b3a;--d:#e08a7a;--display:'Oswald','Arial Narrow',Impact,'Haettenschweiler','Franklin Gothic Medium',sans-serif;--mono:ui-monospace,'SFMono-Regular',Consolas,'Liberation Mono',monospace;color-scheme:dark}
+:root{--bg:#0b0c0a;--ink:#f4f0e8;--muted:#c8bba6;--line:rgba(244,240,232,.1);--tan:#c4ad80;--tan-deep:#b59a6a;--green:#5b6b3a;--red:#e09a90;--field:rgba(8,9,7,.72);--card:rgba(22,24,20,.78);--sans:-apple-system,BlinkMacSystemFont,"SF Pro Text","SF Pro Display",Inter,"Segoe UI",Roboto,sans-serif;color-scheme:dark}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--t);font:17px/1.35 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;padding:env(safe-area-inset-top) 0 calc(76px + env(safe-area-inset-bottom))}
-#camo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none}
-header,main,nav{position:relative;z-index:1}
-header{padding:12px 16px 10px;font-family:var(--display);font-size:22px;font-weight:700;font-stretch:condensed;letter-spacing:.14em;text-transform:uppercase;border-bottom:1px solid rgba(181,154,106,.4)}
-main{padding:8px 12px}
-.card{position:relative;background:
-linear-gradient(var(--a),var(--a)) left 6px top 6px/14px 2px no-repeat,
-linear-gradient(var(--a),var(--a)) left 6px top 6px/2px 14px no-repeat,
-linear-gradient(var(--a),var(--a)) right 6px top 6px/14px 2px no-repeat,
-linear-gradient(var(--a),var(--a)) right 6px top 6px/2px 14px no-repeat,
-linear-gradient(var(--a),var(--a)) left 6px bottom 6px/14px 2px no-repeat,
-linear-gradient(var(--a),var(--a)) left 6px bottom 6px/2px 14px no-repeat,
-linear-gradient(var(--a),var(--a)) right 6px bottom 6px/14px 2px no-repeat,
-linear-gradient(var(--a),var(--a)) right 6px bottom 6px/2px 14px no-repeat,
-var(--card);
-border:1px solid rgba(91,107,58,.85);border-radius:3px;padding:12px;margin-bottom:8px}
-input,select,textarea,button{font:inherit;color:var(--t);background:#10120e;border:1px solid #6a5e4c;border-radius:2px;padding:12px;min-height:48px;width:100%}
-textarea{min-height:56px}label{display:block;color:var(--m);font-family:var(--display);font-size:13px;font-stretch:condensed;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin:8px 0 4px}
-button{background:var(--a);color:#1a140c;font-family:var(--display);font-weight:700;font-stretch:condensed;letter-spacing:.08em;text-transform:uppercase;border:1px solid #d4bc8a;cursor:pointer}
-button.s{background:#1c2118;color:var(--t);border-color:var(--g)}
-button.x{background:transparent;color:var(--d);border-color:transparent;width:auto;min-height:44px;padding:8px 10px;letter-spacing:.06em}
-button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid #d4bc8a;outline-offset:2px}
-input:focus,select:focus,textarea:focus{border-color:var(--a);box-shadow:0 0 0 2px rgba(181,154,106,.4)}
-::placeholder{color:#b7aa96;opacity:1}
-.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.g3{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;align-items:center;margin-top:6px}
-nav{position:fixed;bottom:0;left:0;right:0;z-index:2;display:flex;background:rgba(11,12,10,.94);border-top:1px solid rgba(181,154,106,.45);padding-bottom:env(safe-area-inset-bottom)}
-nav button{background:none;color:#b7aa96;border:0;border-radius:0;font-family:var(--display);font-size:10px;letter-spacing:.04em;line-height:1.15;min-height:64px;font-weight:700;padding:8px 2px}
-nav button.on{color:#d4bc8a;box-shadow:inset 0 -3px 0 var(--g)}
-.m{color:var(--m);font-size:14px}h3{margin:0 0 6px;font-family:var(--display);font-size:16px;font-weight:700;font-stretch:condensed;letter-spacing:.07em;text-transform:uppercase}
-.num,input[inputmode="decimal"],input[type="date"]{font-family:var(--mono);letter-spacing:0;font-variant-numeric:tabular-nums}
-canvas{width:100%;height:200px}.hide{display:none}
-label.tog{display:flex;align-items:center;gap:12px;min-height:48px;margin:8px 0;color:var(--t);font-size:16px;letter-spacing:.06em}
-label.tog input{width:28px;height:28px;min-height:28px;padding:0;flex:none;accent-color:var(--a)}
-select option,select optgroup{background:#10120e;color:var(--t)}
-select optgroup{color:#d4bc8a}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.45 var(--sans);padding:0 0 calc(96px + env(safe-area-inset-bottom))}
+#camo{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:.72}
+#veil{position:fixed;inset:0;z-index:0;pointer-events:none;background:linear-gradient(180deg,rgba(11,12,10,0) 0%,rgba(11,12,10,.45) 120px,rgba(11,12,10,.86) 240px,rgba(11,12,10,.92) 100%)}
+header,main{position:relative;z-index:1}
+header{position:sticky;top:0;z-index:3;padding:calc(14px + env(safe-area-inset-top)) 20px 14px;background:rgba(11,12,10,.78);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border-bottom:1px solid var(--line)}
+.brand{margin:0;font-size:13px;font-weight:600;letter-spacing:.04em;color:var(--tan)}
+header h1{margin:2px 0 0;font-size:26px;font-weight:600;letter-spacing:-.02em}
+main{padding:12px 16px 8px}
+.card{background:var(--card);-webkit-backdrop-filter:blur(16px) saturate(1.15);backdrop-filter:blur(16px) saturate(1.15);border:1px solid var(--line);border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.28);padding:14px;margin-bottom:8px;scroll-margin-top:96px}
+h3{margin:0 0 12px;font-size:18px;font-weight:600;letter-spacing:-.015em}
+label{display:block;color:var(--muted);font-size:13px;font-weight:600;letter-spacing:.01em;margin:8px 0 6px}
+label:first-child{margin-top:0}
+input,select,textarea{font:inherit;font-variant-numeric:tabular-nums;color:var(--ink);background:var(--field);border:1px solid rgba(244,240,232,.14);border-radius:12px;padding:12px 14px;min-height:48px;width:100%;transition:border-color .18s ease,box-shadow .18s ease}
+textarea{height:64px;min-height:48px;resize:vertical}
+button{font:inherit;font-weight:600;color:#1a140c;background:var(--tan-deep);border:0;border-radius:999px;padding:12px 16px;min-height:48px;width:100%;cursor:pointer;transition:background .18s ease,transform .12s ease,color .18s ease,border-color .18s ease}
+button:active{transform:scale(.985)}
+button.s{background:rgba(91,107,58,.22);color:var(--ink);border:1px solid rgba(91,107,58,.75)}
+button.x{width:auto;background:transparent;color:var(--red);border:0;padding:8px 12px}
+button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--tan);outline-offset:2px}
+input:focus,select:focus,textarea:focus{border-color:var(--tan);box-shadow:0 0 0 3px rgba(181,154,106,.28)}
+::placeholder{color:#c2b49c;opacity:1}
+.row{display:flex;gap:10px;align-items:center}.row>*{flex:1;min-width:0}
+.m{color:var(--muted);font-size:14px;margin:0}
+.exhead{display:flex;gap:12px;align-items:center;justify-content:space-between}
+.exhead h3{margin:0}
+.set{display:grid;grid-template-columns:52px 1fr 1fr 48px;gap:8px;align-items:end;padding:12px 0;border-top:1px solid var(--line)}
+.set .setn{font-size:13px;font-weight:600;color:var(--muted);font-variant-numeric:tabular-nums;padding-bottom:14px}
+.fld span{display:block;font-size:12px;font-weight:600;color:var(--muted);margin:0 0 6px}
+.set button.x{width:48px;min-width:48px;height:48px;padding:0;border-radius:14px;background:rgba(224,154,144,.1)}
+.set button.x svg{width:18px;height:18px;display:block;margin:0 auto}
+.seg{display:flex;gap:6px;padding:4px;border-radius:14px;background:rgba(8,9,7,.55)}
+.seg button{width:auto;flex:1;border-radius:11px;font-variant-numeric:tabular-nums}
+b{font-weight:600;font-variant-numeric:tabular-nums}
+label.tog{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:48px;margin:14px 0;color:var(--ink);font-size:16px;font-weight:600}
+label.tog input{appearance:none;-webkit-appearance:none;width:52px;height:32px;min-height:32px;padding:0;flex:none;border:0;border-radius:999px;background:#34382f radial-gradient(circle at 16px 50%,#f4f0e8 0 10px,transparent 11px);transition:background .18s ease}
+label.tog input:checked{background:var(--tan-deep) radial-gradient(circle at calc(100% - 16px) 50%,#1a140c 0 10px,transparent 11px)}
+select option,select optgroup{background:#141612;color:var(--ink)}
+select optgroup{color:var(--tan)}
+.pill{flex:none;border-radius:999px;padding:6px 12px;background:rgba(181,154,106,.16);color:#f0e2c4;font-size:13px;font-weight:600;font-variant-numeric:tabular-nums}
+.exlist .exrow{display:flex;flex-direction:column;gap:8px;padding:12px 0}
+.exlist .exrow+.exrow,.list .wrow+.wrow,.list .librow+.librow{border-top:1px solid var(--line)}
+.exname{font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border-radius:999px;padding:6px 10px;background:rgba(244,240,232,.06);border:1px solid var(--line);font-size:13px;font-variant-numeric:tabular-nums}
+.stat{margin:0;font-size:32px;font-weight:600;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.wrow,.librow{display:flex;gap:12px;align-items:center;padding:12px 0}
+.wrow:first-child,.librow:first-child{padding-top:0}
+.list .wrow:last-child,.list .librow:last-child{padding-bottom:0}
+.grow{flex:1;min-width:0}
+canvas{width:100%;height:200px}
+nav{position:fixed;left:0;right:0;bottom:0;z-index:4;display:flex;gap:2px;padding:6px 6px calc(6px + env(safe-area-inset-bottom));background:rgba(14,15,12,.88);-webkit-backdrop-filter:blur(18px) saturate(1.2);backdrop-filter:blur(18px) saturate(1.2);border-top:1px solid var(--line)}
+nav button{width:auto;flex:1;min-height:56px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px 2px;border-radius:12px;background:transparent;color:#c8bba6;font-size:10px;font-weight:600;letter-spacing:0}
+nav button svg{width:22px;height:22px}
+nav button.on{color:#f3e6cc;background:rgba(181,154,106,.14)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 </style></head><body>
 <svg id="camo" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
-<defs><pattern id="mc" width="480" height="480" patternUnits="userSpaceOnUse">
-<rect width="480" height="480" fill="#0b0c0a"/>
-<ellipse cx="70" cy="90" rx="130" ry="58" fill="#1a1e14" transform="rotate(-22 70 90)"/>
-<ellipse cx="250" cy="40" rx="100" ry="42" fill="#2c2820" opacity=".55" transform="rotate(18 250 40)"/>
-<ellipse cx="410" cy="130" rx="120" ry="50" fill="#141910" transform="rotate(26 410 130)"/>
-<ellipse cx="120" cy="230" rx="110" ry="46" fill="#3a342c" opacity=".38" transform="rotate(-14 120 230)"/>
-<ellipse cx="300" cy="250" rx="140" ry="52" fill="#1c2418" transform="rotate(8 300 250)"/>
-<ellipse cx="430" cy="330" rx="90" ry="40" fill="#242018" opacity=".6" transform="rotate(-8 430 330)"/>
-<ellipse cx="80" cy="380" rx="120" ry="48" fill="#12160f" transform="rotate(16 80 380)"/>
-<ellipse cx="240" cy="420" rx="100" ry="36" fill="#2a261c" opacity=".45" transform="rotate(-20 240 420)"/>
-<ellipse cx="180" cy="150" rx="46" ry="22" fill="#10140e"/>
+<defs><pattern id="mc" width="520" height="520" patternUnits="userSpaceOnUse">
+<rect width="520" height="520" fill="#0b0c0a"/>
+<ellipse cx="80" cy="90" rx="150" ry="64" fill="#243024" opacity=".9" transform="rotate(-18 80 90)"/>
+<ellipse cx="280" cy="40" rx="130" ry="50" fill="#3a3428" opacity=".55" transform="rotate(12 280 40)"/>
+<ellipse cx="450" cy="150" rx="140" ry="56" fill="#1a2218" opacity=".8" transform="rotate(20 450 150)"/>
+<ellipse cx="140" cy="260" rx="120" ry="48" fill="#322c24" opacity=".4" transform="rotate(-12 140 260)"/>
+<ellipse cx="340" cy="300" rx="150" ry="54" fill="#1c2418" opacity=".55" transform="rotate(8 340 300)"/>
+<ellipse cx="90" cy="420" rx="130" ry="46" fill="#12160f" opacity=".45"/>
 </pattern></defs>
 <rect width="100%" height="100%" fill="url(#mc)"/>
 </svg>
-<header id="ttl">Log Workout</header><main id="app"></main>
+<div id="veil" aria-hidden="true"></div>
+<header><p class="brand">Workout Journal</p><h1 id="ttl">Log Workout</h1></header>
+<main id="app"></main>
 <nav id="nav"></nav>
 <script>
 const K='wj-data-v1';let D=JSON.parse(localStorage.getItem(K)||'null')||{sessions:[],library:[
@@ -66,28 +86,37 @@ const save=()=>localStorage.setItem(K,JSON.stringify(D));const $=s=>document.que
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const today=()=>new Date().toLocaleDateString('en-CA');
 const tabs=[['log','Log'],['hist','History'],['lib','Exercises'],['prog','Progress'],['wt','Weight'],['more','Backup']];
+const I={
+log:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>',
+hist:'<svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="7.25" fill="none" stroke="currentColor" stroke-width="1.75"/><path d="M12 8.5V12l2.4 1.8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>',
+lib:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 9.5v5M17 9.5v5M4 11v2.2M20 11v2.2M7 12h10" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>',
+prog:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 16.5V11M10 16.5V7.5M15 16.5v-4M20 16.5V5.5" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>',
+wt:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4.5v15M8.5 7h7M8 17.5h8" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/><rect x="5" y="9" width="3" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/><rect x="16" y="9" width="3" height="6" rx="1" fill="none" stroke="currentColor" stroke-width="1.5"/></svg>',
+more:'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 8h10M7 12h10M7 16h6" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>'
+};
+const X='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round"/></svg>';
 let tab='log',cur=null,editId=null,pickQ='',pickBeg=true;
 let CATALOG={categories:['Chest','Back','Shoulders','Arms','Legs','Core','Cardio','Mobility'],exercises:[]};
-function nav(){$('#nav').innerHTML=tabs.map(([k,l])=>`<button class="${k==tab?'on':''}" onclick="go('${k}')">${l}</button>`).join('')}
+function nav(){$('#nav').innerHTML=tabs.map(([k,l])=>`<button class="${k==tab?'on':''}" onclick="go('${k}')">${I[k]}<span>${l}</span></button>`).join('')}
 function go(t){tab=t;nav();$('#ttl').textContent=tabs.find(x=>x[0]==t)[1]=='Log'?'Log Workout':tabs.find(x=>x[0]==t)[1];R[t]();scrollTo(0,0)}
 const isC=n=>(D.library.find(e=>e.n==n)||{}).k=='cardio';
 function blank(){return{id:Date.now(),date:today(),type:'strength',ex:[],notes:'',feel:3}}
 const R={};
 R.log=()=>{cur=cur||blank();const s=cur;$('#app').innerHTML=`
-<div class="card"><div class="row"><div><label>Date</label><input type="date" value="${s.date}" onchange="cur.date=this.value"></div>
-<div><label>Type</label><select onchange="cur.type=this.value">${['strength','cardio','walk','mixed','other'].map(t=>`<option ${t==s.type?'selected':''}>${t}</option>`).join('')}</select></div></div></div>
+<div class="card"><div class="row"><div><label for="wdate">Date</label><input id="wdate" type="date" value="${s.date}" onchange="cur.date=this.value"></div>
+<div><label for="wtype">Type</label><select id="wtype" onchange="cur.type=this.value">${['strength','cardio','walk','mixed','other'].map(t=>`<option ${t==s.type?'selected':''}>${t}</option>`).join('')}</select></div></div></div>
 <div class="card"><h3>Add exercise</h3>
 <label for="exq">Search</label><input id="exq" placeholder="Search name or equipment" autocomplete="off" value="${esc(pickQ)}" oninput="pickQ=this.value;fillPicker()">
-<label class="tog" for="exbeg"><input id="exbeg" type="checkbox" ${pickBeg?'checked':''} onchange="pickBeg=this.checked;fillPicker()">Beginner-friendly only</label>
+<label class="tog" for="exbeg">Beginner-friendly only<input id="exbeg" type="checkbox" ${pickBeg?'checked':''} onchange="pickBeg=this.checked;fillPicker()"></label>
 <label for="expick">Exercise</label><select id="expick" onchange="pickEx()"></select>
-<p class="m" id="excount"></p></div>
-${s.ex.map((e,i)=>`<div class="card"><div class="row"><h3>${esc(e.n)}</h3><button class="x" style="flex:0" onclick="cur.ex.splice(${i},1);R.log()">Remove</button></div>
-<div class="g3 m num"><span>${e.c?'Minutes':'Reps'}</span><span>${e.c?'Miles':'Weight lb'}</span><span></span><span></span></div>
-${e.sets.map((t,j)=>`<div class="g3"><input inputmode="decimal" value="${t.a??''}" oninput="cur.ex[${i}].sets[${j}].a=this.value"><input inputmode="decimal" value="${t.b??''}" oninput="cur.ex[${i}].sets[${j}].b=this.value"><span class="m num">Set ${j+1}</span><button class="x" onclick="cur.ex[${i}].sets.splice(${j},1);R.log()">✕</button></div>`).join('')}
-<button class="s" style="margin-top:8px" onclick="addSet(${i})">+ Add set</button></div>`).join('')}
-<div class="card"><label>How it felt (1 = rough, 5 = great)</label><div class="row">${[1,2,3,4,5].map(n=>`<button class="${n==s.feel?'':'s'}" onclick="cur.feel=${n};R.log()">${n}</button>`).join('')}</div>
-<label>Notes</label><textarea oninput="cur.notes=this.value">${esc(s.notes)}</textarea></div>
-<button onclick="finish()">${editId?'Update':'Save'} workout</button>${editId?'<button class="s" style="margin-top:8px" onclick="cur=null;editId=null;R.log()">Cancel edit</button>':''}`;fillPicker()};
+<p class="m" id="excount" style="margin-top:8px"></p></div>
+${s.ex.map((e,i)=>`<div class="card"><div class="exhead"><h3>${esc(e.n)}</h3><button class="x" onclick="cur.ex.splice(${i},1);R.log()">Remove</button></div>
+${e.sets.map((t,j)=>`<div class="set"><span class="setn">Set ${j+1}</span><label class="fld"><span>${e.c?'Minutes':'Reps'}</span><input inputmode="decimal" value="${t.a??''}" oninput="cur.ex[${i}].sets[${j}].a=this.value"></label><label class="fld"><span>${e.c?'Miles':'Weight lb'}</span><input inputmode="decimal" value="${t.b??''}" oninput="cur.ex[${i}].sets[${j}].b=this.value"></label><button class="x" aria-label="Remove set" onclick="cur.ex[${i}].sets.splice(${j},1);R.log()">${X}</button></div>`).join('')}
+<button class="s" style="margin-top:8px" onclick="addSet(${i})">Add set</button></div>`).join('')}
+<div class="card"><label>How it felt</label><div class="seg" role="group" aria-label="How it felt, 1 rough to 5 great">${[1,2,3,4,5].map(n=>`<button class="${n==s.feel?'':'s'}" onclick="cur.feel=${n};R.log()">${n}</button>`).join('')}</div>
+<p class="m" style="margin-top:8px">1 is rough, 5 is great.</p>
+<label for="notes">Notes</label><textarea id="notes" oninput="cur.notes=this.value">${esc(s.notes)}</textarea></div>
+<button onclick="finish()">${editId?'Update workout':'Save workout'}</button>${editId?'<button class="s" style="margin-top:8px" onclick="cur=null;editId=null;R.log()">Cancel edit</button>':''}`;fillPicker()};
 function loadCatalog(){return fetch('exercises.json').then(r=>{if(!r.ok)throw 0;return r.json()}).then(j=>{if(j&&Array.isArray(j.exercises))CATALOG=j}).catch(()=>{})}
 function fillPicker(){const sel=$('#expick');if(!sel)return;const q=pickQ.trim().toLowerCase();
 const list=CATALOG.exercises||[],names=new Set(list.map(e=>String(e.name).toLowerCase()));
@@ -108,40 +137,41 @@ function pickEx(){const v=$('#expick').value;if(!v)return;let name,cardio;
 if(v.startsWith('c:')){const ex=(CATALOG.exercises||[]).find(e=>e.id===v.slice(2));if(!ex)return;name=ex.name;cardio=ex.type==='cardio'}
 else if(v.startsWith('u:')){let n;try{n=decodeURIComponent(v.slice(2))}catch(err){return}const lib=(D.library||[]).find(e=>e.n===n);if(!lib)return;name=lib.n;cardio=lib.k==='cardio'}
 else return;cur=cur||blank();cur.ex.push({n:name,c:cardio,sets:[{a:'',b:''}]});R.log();
-const inputs=[...document.querySelectorAll('#app .g3 input')];if(inputs.length>=2){inputs[inputs.length-2].focus({preventScroll:true});inputs[inputs.length-2].closest('.card').scrollIntoView({block:'center'})}}
+const inputs=[...document.querySelectorAll('#app .set input')];if(inputs.length>=2){inputs[inputs.length-2].focus({preventScroll:true});inputs[inputs.length-2].closest('.card').scrollIntoView({block:'center'})}}
 function addSet(i){const p=cur.ex[i].sets.at(-1)||{};cur.ex[i].sets.push({a:p.a||'',b:p.b||''});R.log()}
 function finish(){if(!cur.ex.length&&!cur.notes){alert('Add an exercise or a note first.');return}
 cur.ex.forEach(e=>e.sets=e.sets.filter(t=>t.a!==''||t.b!==''));
 if(editId)D.sessions=D.sessions.map(x=>x.id==editId?cur:x);else D.sessions.push(cur);save();cur=null;editId=null;alert('Saved!');go('hist')}
 const vol=e=>e.c?0:e.sets.reduce((s,t)=>s+(+t.a||0)*(+t.b||0),0);
-R.hist=()=>{const L=[...D.sessions].sort((a,b)=>b.date.localeCompare(a.date));$('#app').innerHTML=L.length?L.map(s=>`<div class="card"><div class="row"><h3>${s.date} · ${s.type}</h3><span class="m" style="flex:0;white-space:nowrap">Feel ${s.feel}/5</span></div>
-${s.ex.map(e=>`<div><b>${esc(e.n)}</b> <span class="m num">${e.sets.map(t=>e.c?`${t.a||0} min${t.b?' / '+t.b+' mi':''}`:`${t.a}×${t.b||0}`).join(', ')}</span></div>`).join('')}
-${s.notes?`<p class="m">${esc(s.notes)}</p>`:''}<div class="row"><button class="s" onclick="edit(${s.id})">Edit</button><button class="x" onclick="del(${s.id})">Delete</button></div></div>`).join(''):'<div class="card m">No workouts yet. Log your first one!</div>'};
+const setChips=e=>e.sets.map(t=>`<span class="chip">${e.c?`${t.a||0} min${t.b?' · '+t.b+' mi':''}`:`${t.a} × ${t.b||0} lb`}</span>`).join('');
+R.hist=()=>{const L=[...D.sessions].sort((a,b)=>b.date.localeCompare(a.date));$('#app').innerHTML=L.length?L.map(s=>`<div class="card"><div class="exhead"><div><h3>${s.date}</h3><p class="m" style="margin-top:2px;text-transform:capitalize">${esc(s.type)}</p></div><span class="pill">Feel ${s.feel}/5</span></div>
+<div class="exlist">${s.ex.map(e=>`<div class="exrow"><div class="exname">${esc(e.n)}</div><div class="chips">${setChips(e)}</div></div>`).join('')}</div>
+${s.notes?`<p class="m" style="margin-top:8px">${esc(s.notes)}</p>`:''}<div class="row" style="margin-top:14px"><button class="s" onclick="edit(${s.id})">Edit</button><button class="x" onclick="del(${s.id})">Delete</button></div></div>`).join(''):'<div class="card"><h3>No workouts yet</h3><p class="m">Log your first one from the Log tab.</p></div>'};
 function edit(id){cur=JSON.parse(JSON.stringify(D.sessions.find(s=>s.id==id)));editId=id;go('log')}
 function del(id){if(confirm('Delete this workout?')){D.sessions=D.sessions.filter(s=>s.id!=id);save();R.hist()}}
 function prs(){const P={};D.sessions.forEach(s=>s.ex.forEach(e=>{const p=P[e.n]=P[e.n]||{c:e.c,max:0,reps:0,vol:0,min:0,mi:0};
 e.sets.forEach(t=>{const a=+t.a||0,b=+t.b||0;if(e.c){p.min=Math.max(p.min,a);p.mi=Math.max(p.mi,b)}else{p.max=Math.max(p.max,b);p.reps=Math.max(p.reps,a)}});p.vol=Math.max(p.vol,vol(e))}));return P}
-R.lib=()=>{const P=prs();$('#app').innerHTML=`<div class="card"><h3>Add exercise</h3><input id="nn" placeholder="Exercise name"><div class="row" style="margin-top:8px"><select id="nk"><option value="strength">Strength (reps × weight)</option><option value="cardio">Cardio (minutes / miles)</option></select></div><button style="margin-top:8px" onclick="addLib()">Add to library</button></div>
-${D.library.map((e,i)=>{const p=P[e.n];return`<div class="card"><div class="row"><h3>${esc(e.n)}</h3><button class="x" style="flex:0" onclick="if(confirm('Remove from library?')){D.library.splice(${i},1);save();R.lib()}">Remove</button></div><div class="m">${e.k}${p?(p.c?` · PR: ${p.min} min, ${p.mi} mi`:` · PR: ${p.max} lb top weight, ${p.reps} reps, ${p.vol} lb best volume`):' · no PRs yet'}</div></div>`}).join('')}`};
+R.lib=()=>{const P=prs();$('#app').innerHTML=`<div class="card"><h3>Add exercise</h3><label for="nn">Name</label><input id="nn" placeholder="Exercise name"><label for="nk">Tracking</label><select id="nk"><option value="strength">Strength (reps × weight)</option><option value="cardio">Cardio (minutes / miles)</option></select><button style="margin-top:14px" onclick="addLib()">Add to library</button></div>
+<div class="card list">${D.library.map((e,i)=>{const p=P[e.n];const detail=e.k+(p?(p.c?` · PR ${p.min} min, ${p.mi} mi`:` · PR ${p.max} lb, ${p.reps} reps, ${p.vol} lb volume`):' · no PRs yet');return`<div class="librow"><div class="grow"><div class="exname">${esc(e.n)}</div><div class="m">${esc(detail)}</div></div><button class="x" onclick="if(confirm('Remove from library?')){D.library.splice(${i},1);save();R.lib()}">Remove</button></div>`}).join('')}</div>`};
 function addLib(){const n=$('#nn').value.trim();if(!n)return;if(D.library.some(e=>e.n.toLowerCase()==n.toLowerCase())){alert('Already in library');return}D.library.push({n,k:$('#nk').value});save();R.lib()}
 function chart(id,labels,vals,unit){const c=document.getElementById(id),r=devicePixelRatio||1,W=c.clientWidth,H=200;c.width=W*r;c.height=H*r;const x=c.getContext('2d');x.scale(r,r);
-x.fillStyle='#c2b49c';x.font='11px ui-monospace,monospace';if(!vals.length){x.fillText('No data yet',10,100);return}
+x.fillStyle='#c8bba6';x.font='12px -apple-system,BlinkMacSystemFont,Segoe UI,sans-serif';if(!vals.length){x.fillText('No data yet',10,100);return}
 const mx=Math.max(...vals)||1,mn=unit=='lb'?Math.min(...vals)*0.98:0,n=vals.length,bw=(W-40)/n;
-vals.forEach((v,i)=>{const h=(v-mn)/(mx-mn||1)*(H-50)+4;x.fillStyle='#8a9a58';x.fillRect(30+i*bw+2,H-24-h,Math.max(bw-4,2),h);
-if(n<=12){x.fillStyle='#c2b49c';x.fillText(labels[i],30+i*bw+2,H-8)}});x.fillStyle='#e7e2d6';x.fillText(`max ${Math.round(mx)} ${unit}`,30,12)}
+vals.forEach((v,i)=>{const h=(v-mn)/(mx-mn||1)*(H-50)+4;x.fillStyle='#8a9a58';const rx=30+i*bw+2,ry=H-24-h,rw=Math.max(bw-6,3);if(x.roundRect){x.beginPath();x.roundRect(rx,ry,rw,h,4);x.fill()}else x.fillRect(rx,ry,rw,h);
+if(n<=12){x.fillStyle='#c8bba6';x.fillText(labels[i],30+i*bw+2,H-8)}});x.fillStyle='#f4f0e8';x.fillText(`max ${Math.round(mx)} ${unit}`,30,16)}
 function wk(d){const t=new Date(d+'T12:00');t.setDate(t.getDate()-((t.getDay()+6)%7));return t.toLocaleDateString('en-CA')}
 R.prog=()=>{const names=[...new Set(D.sessions.flatMap(s=>s.ex.filter(e=>!e.c).map(e=>e.n)))];
-$('#app').innerHTML=`<div class="card"><h3>Workouts per week</h3><canvas id="c1"></canvas></div><div class="card"><h3>Volume per exercise</h3><select id="ps" onchange="drawV()">${names.map(n=>`<option>${esc(n)}</option>`).join('')}</select><canvas id="c2"></canvas><p class="m">Volume = reps × weight, summed per session.</p></div>`;
+$('#app').innerHTML=`<div class="card"><h3>Workouts per week</h3><canvas id="c1"></canvas></div><div class="card"><h3>Volume per exercise</h3><select id="ps" onchange="drawV()">${names.map(n=>`<option>${esc(n)}</option>`).join('')}</select><canvas id="c2"></canvas><p class="m" style="margin-top:8px">Volume is reps × weight, summed per session.</p></div>`;
 const W={};D.sessions.forEach(s=>{const k=wk(s.date);W[k]=(W[k]||0)+1});const ks=Object.keys(W).sort().slice(-12);chart('c1',ks.map(k=>k.slice(5)),ks.map(k=>W[k]),'workouts');drawV()};
 function drawV(){const n=($('#ps')||{}).value;const pts=D.sessions.filter(s=>s.ex.some(e=>e.n==n)).sort((a,b)=>a.date.localeCompare(b.date)).slice(-12).map(s=>[s.date.slice(5),s.ex.filter(e=>e.n==n).reduce((t,e)=>t+vol(e),0)]);chart('c2',pts.map(p=>p[0]),pts.map(p=>p[1]),'lb')}
 R.wt=()=>{const L=[...D.weights].sort((a,b)=>a.date.localeCompare(b.date));const f=L[0],l=L.at(-1);
-$('#app').innerHTML=`<div class="card"><div class="row"><div><label>Date</label><input type="date" id="wd" value="${today()}"></div><div><label>Weight (lb)</label><input id="wv" inputmode="decimal"></div></div><button style="margin-top:10px" onclick="addW()">Log weight</button></div>
-${L.length>1?`<div class="card"><b>${(l.w-f.w>0?'+':'')+(l.w-f.w).toFixed(1)} lb</b> <span class="m">since ${f.date}</span></div>`:''}
-<div class="card"><h3>Trend</h3><canvas id="c3"></canvas></div>${[...L].reverse().map(x=>`<div class="card row"><span>${x.date}</span><b class="num">${x.w} lb</b><button class="x" style="flex:0" onclick="D.weights=D.weights.filter(y=>y.id!=${x.id});save();R.wt()">✕</button></div>`).join('')}`;
+$('#app').innerHTML=`<div class="card"><div class="row"><div><label for="wd">Date</label><input id="wd" type="date" value="${today()}"></div><div><label for="wv">Weight (lb)</label><input id="wv" inputmode="decimal"></div></div><button style="margin-top:14px" onclick="addW()">Log weight</button></div>
+${L.length>1?`<div class="card"><p class="stat">${(l.w-f.w>0?'+':'')+(l.w-f.w).toFixed(1)} lb</p><p class="m" style="margin-top:4px">since ${f.date}</p></div>`:''}
+<div class="card"><h3>Trend</h3><canvas id="c3"></canvas></div>${L.length?`<div class="card list">${[...L].reverse().map(x=>`<div class="wrow"><span class="grow">${x.date}</span><b>${x.w} lb</b><button class="x" onclick="D.weights=D.weights.filter(y=>y.id!=${x.id});save();R.wt()">Remove</button></div>`).join('')}</div>`:''}`;
 const s=L.slice(-20);chart('c3',s.map(x=>x.date.slice(5)),s.map(x=>x.w),'lb')};
 function addW(){const w=parseFloat($('#wv').value);if(!w)return;D.weights.push({id:Date.now(),date:$('#wd').value,w});save();R.wt()}
-R.more=()=>{$('#app').innerHTML=`<div class="card"><h3>Backup</h3><p class="m">Your data lives only on this device. Export regularly.</p><button onclick="exp()">Export JSON</button><label>Import JSON (replaces current data)</label><input type="file" accept=".json,application/json" onchange="imp(this.files[0])"></div>
-<div class="card m">${D.sessions.length} workouts · ${D.library.length} exercises · ${D.weights.length} weigh-ins</div>`};
+R.more=()=>{$('#app').innerHTML=`<div class="card"><h3>Backup</h3><p class="m">Your data lives only on this device. Export regularly.</p><button style="margin-top:14px" onclick="exp()">Export JSON</button><label for="imp">Import JSON (replaces current data)</label><input id="imp" type="file" accept=".json,application/json" onchange="imp(this.files[0])"></div>
+<div class="card"><p class="stat" style="font-size:22px">${D.sessions.length} · ${D.library.length} · ${D.weights.length}</p><p class="m" style="margin-top:4px">workouts, exercises, weigh-ins</p></div>`};
 function exp(){const b=new Blob([JSON.stringify(D,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`workout-journal-${today()}.json`;a.click()}
 function imp(f){if(!f)return;f.text().then(t=>{const j=JSON.parse(t);if(!j.sessions||!j.library)throw 0;if(confirm('Replace all current data?')){D={weights:[],...j};save();alert('Imported');go('hist')}}).catch(()=>alert('Not a valid backup file'))}
 nav();R.log();loadCatalog().then(()=>{if(tab==='log'&&$('#expick'))fillPicker()});

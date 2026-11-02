@@ -1,4 +1,4 @@
-const C='wj-v3',F=['./','./index.html','./manifest.json','./icon.svg','./exercises.json'];
+const C='wj-v4',F=['./','./index.html','./manifest.json','./icon.svg','./exercises.json'];
 self.addEventListener('install',e=>{
   e.waitUntil(caches.open(C).then(cache=>Promise.all(F.map(async url=>{
     const res=await fetch(url+'?v='+C,{cache:'reload'});
