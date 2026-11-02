@@ -1,0 +1,83 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#111418"><link rel="manifest" href="manifest.json"><link rel="apple-touch-icon" href="icon.svg">
+<title>Workout Journal</title>
+<style>
+:root{--bg:#111418;--card:#1b2028;--b:#2a313c;--t:#e8ecf1;--m:#8b95a5;--a:#4ade80;--d:#f87171}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--t);font:17px -apple-system,system-ui,sans-serif;padding:env(safe-area-inset-top) 0 calc(80px + env(safe-area-inset-bottom))}
+header{padding:16px;font-size:22px;font-weight:700}main{padding:0 12px}
+.card{background:var(--card);border:1px solid var(--b);border-radius:14px;padding:14px;margin-bottom:12px}
+input,select,textarea,button{font:inherit;color:var(--t);background:#0d1014;border:1px solid var(--b);border-radius:10px;padding:12px;min-height:48px;width:100%}
+textarea{min-height:70px}label{display:block;color:var(--m);font-size:14px;margin:10px 0 4px}
+button{background:var(--a);color:#06240f;font-weight:700;border:0;cursor:pointer}button.s{background:#2a313c;color:var(--t)}button.x{background:transparent;color:var(--d);width:auto;min-height:40px;padding:6px 10px}
+.row{display:flex;gap:8px;align-items:center}.row>*{flex:1}.g3{display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:6px;align-items:center;margin-top:6px}
+nav{position:fixed;bottom:0;left:0;right:0;display:flex;background:#0b0e12;border-top:1px solid var(--b);padding-bottom:env(safe-area-inset-bottom)}
+nav button{background:none;color:var(--m);border-radius:0;font-size:13px;min-height:64px;font-weight:600}nav button.on{color:var(--a)}
+.chip{display:inline-block;background:#2a313c;border-radius:20px;padding:10px 14px;margin:4px;min-height:44px}
+.m{color:var(--m);font-size:14px}h3{margin:4px 0 8px}canvas{width:100%;height:200px}.hide{display:none}
+</style></head><body>
+<header id="ttl">Log Workout</header><main id="app"></main>
+<nav id="nav"></nav>
+<script>
+const K='wj-data-v1';let D=JSON.parse(localStorage.getItem(K)||'null')||{sessions:[],library:[
+{n:'Walk',k:'cardio'},{n:'Stationary Bike',k:'cardio'},{n:'Goblet Squat',k:'strength'},{n:'Leg Press',k:'strength'},{n:'Chest Press',k:'strength'},{n:'Lat Pulldown',k:'strength'},{n:'Seated Row',k:'strength'},{n:'Dumbbell Shoulder Press',k:'strength'},{n:'Plank',k:'cardio'}],weights:[]};
+const save=()=>localStorage.setItem(K,JSON.stringify(D));const $=s=>document.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const today=()=>new Date().toLocaleDateString('en-CA');
+const tabs=[['log','Log'],['hist','History'],['lib','Exercises'],['prog','Progress'],['wt','Weight'],['more','Backup']];
+let tab='log',cur=null,editId=null;
+function nav(){$('#nav').innerHTML=tabs.map(([k,l])=>`<button class="${k==tab?'on':''}" onclick="go('${k}')">${l}</button>`).join('')}
+function go(t){tab=t;nav();$('#ttl').textContent=tabs.find(x=>x[0]==t)[1]=='Log'?'Log Workout':tabs.find(x=>x[0]==t)[1];R[t]();scrollTo(0,0)}
+const isC=n=>(D.library.find(e=>e.n==n)||{}).k=='cardio';
+function blank(){return{id:Date.now(),date:today(),type:'strength',ex:[],notes:'',feel:3}}
+const R={};
+R.log=()=>{cur=cur||blank();const s=cur;$('#app').innerHTML=`
+<div class="card"><div class="row"><div><label>Date</label><input type="date" value="${s.date}" onchange="cur.date=this.value"></div>
+<div><label>Type</label><select onchange="cur.type=this.value">${['strength','cardio','walk','mixed','other'].map(t=>`<option ${t==s.type?'selected':''}>${t}</option>`).join('')}</select></div></div></div>
+<div class="card"><h3>Quick add</h3>${D.library.map((e,i)=>`<button class="chip s" style="width:auto" onclick="addEx(${i})">+ ${esc(e.n)}</button>`).join('')}</div>
+${s.ex.map((e,i)=>`<div class="card"><div class="row"><h3>${esc(e.n)}</h3><button class="x" style="flex:0" onclick="cur.ex.splice(${i},1);R.log()">Remove</button></div>
+<div class="g3 m"><span>${e.c?'Minutes':'Reps'}</span><span>${e.c?'Miles':'Weight lb'}</span><span></span><span></span></div>
+${e.sets.map((t,j)=>`<div class="g3"><input inputmode="decimal" value="${t.a??''}" oninput="cur.ex[${i}].sets[${j}].a=this.value"><input inputmode="decimal" value="${t.b??''}" oninput="cur.ex[${i}].sets[${j}].b=this.value"><span class="m">Set ${j+1}</span><button class="x" onclick="cur.ex[${i}].sets.splice(${j},1);R.log()">✕</button></div>`).join('')}
+<button class="s" style="margin-top:8px" onclick="addSet(${i})">+ Add set</button></div>`).join('')}
+<div class="card"><label>How it felt (1 = rough, 5 = great)</label><div class="row">${[1,2,3,4,5].map(n=>`<button class="${n==s.feel?'':'s'}" onclick="cur.feel=${n};R.log()">${n}</button>`).join('')}</div>
+<label>Notes</label><textarea oninput="cur.notes=this.value">${esc(s.notes)}</textarea></div>
+<button onclick="finish()">${editId?'Update':'Save'} workout</button>${editId?'<button class="s" style="margin-top:8px" onclick="cur=null;editId=null;R.log()">Cancel edit</button>':''}`};
+function addEx(i){const e=D.library[i];const c=e.k=='cardio';cur.ex.push({n:e.n,c,sets:[{a:'',b:''}]});R.log();scrollTo(0,document.body.scrollHeight)}
+function addSet(i){const p=cur.ex[i].sets.at(-1)||{};cur.ex[i].sets.push({a:p.a||'',b:p.b||''});R.log()}
+function finish(){if(!cur.ex.length&&!cur.notes){alert('Add an exercise or a note first.');return}
+cur.ex.forEach(e=>e.sets=e.sets.filter(t=>t.a!==''||t.b!==''));
+if(editId)D.sessions=D.sessions.map(x=>x.id==editId?cur:x);else D.sessions.push(cur);save();cur=null;editId=null;alert('Saved!');go('hist')}
+const vol=e=>e.c?0:e.sets.reduce((s,t)=>s+(+t.a||0)*(+t.b||0),0);
+R.hist=()=>{const L=[...D.sessions].sort((a,b)=>b.date.localeCompare(a.date));$('#app').innerHTML=L.length?L.map(s=>`<div class="card"><div class="row"><h3>${s.date} · ${s.type}</h3><span class="m" style="flex:0;white-space:nowrap">Feel ${s.feel}/5</span></div>
+${s.ex.map(e=>`<div><b>${esc(e.n)}</b> <span class="m">${e.sets.map(t=>e.c?`${t.a||0} min${t.b?' / '+t.b+' mi':''}`:`${t.a}×${t.b||0}`).join(', ')}</span></div>`).join('')}
+${s.notes?`<p class="m">${esc(s.notes)}</p>`:''}<div class="row"><button class="s" onclick="edit(${s.id})">Edit</button><button class="x" onclick="del(${s.id})">Delete</button></div></div>`).join(''):'<div class="card m">No workouts yet. Log your first one!</div>'};
+function edit(id){cur=JSON.parse(JSON.stringify(D.sessions.find(s=>s.id==id)));editId=id;go('log')}
+function del(id){if(confirm('Delete this workout?')){D.sessions=D.sessions.filter(s=>s.id!=id);save();R.hist()}}
+function prs(){const P={};D.sessions.forEach(s=>s.ex.forEach(e=>{const p=P[e.n]=P[e.n]||{c:e.c,max:0,reps:0,vol:0,min:0,mi:0};
+e.sets.forEach(t=>{const a=+t.a||0,b=+t.b||0;if(e.c){p.min=Math.max(p.min,a);p.mi=Math.max(p.mi,b)}else{p.max=Math.max(p.max,b);p.reps=Math.max(p.reps,a)}});p.vol=Math.max(p.vol,vol(e))}));return P}
+R.lib=()=>{const P=prs();$('#app').innerHTML=`<div class="card"><h3>Add exercise</h3><input id="nn" placeholder="Exercise name"><div class="row" style="margin-top:8px"><select id="nk"><option value="strength">Strength (reps × weight)</option><option value="cardio">Cardio (minutes / miles)</option></select></div><button style="margin-top:8px" onclick="addLib()">Add to library</button></div>
+${D.library.map((e,i)=>{const p=P[e.n];return`<div class="card"><div class="row"><h3>${esc(e.n)}</h3><button class="x" style="flex:0" onclick="if(confirm('Remove from library?')){D.library.splice(${i},1);save();R.lib()}">Remove</button></div><div class="m">${e.k}${p?(p.c?` · PR: ${p.min} min, ${p.mi} mi`:` · PR: ${p.max} lb top weight, ${p.reps} reps, ${p.vol} lb best volume`):' · no PRs yet'}</div></div>`}).join('')}`};
+function addLib(){const n=$('#nn').value.trim();if(!n)return;if(D.library.some(e=>e.n.toLowerCase()==n.toLowerCase())){alert('Already in library');return}D.library.push({n,k:$('#nk').value});save();R.lib()}
+function chart(id,labels,vals,unit){const c=document.getElementById(id),r=devicePixelRatio||1,W=c.clientWidth,H=200;c.width=W*r;c.height=H*r;const x=c.getContext('2d');x.scale(r,r);
+x.fillStyle='#8b95a5';x.font='11px system-ui';if(!vals.length){x.fillText('No data yet',10,100);return}
+const mx=Math.max(...vals)||1,mn=unit=='lb'?Math.min(...vals)*0.98:0,n=vals.length,bw=(W-40)/n;
+vals.forEach((v,i)=>{const h=(v-mn)/(mx-mn||1)*(H-50)+4;x.fillStyle='#4ade80';x.fillRect(30+i*bw+2,H-24-h,Math.max(bw-4,2),h);
+if(n<=12){x.fillStyle='#8b95a5';x.fillText(labels[i],30+i*bw+2,H-8)}});x.fillStyle='#e8ecf1';x.fillText(`max ${Math.round(mx)} ${unit}`,30,12)}
+function wk(d){const t=new Date(d+'T12:00');t.setDate(t.getDate()-((t.getDay()+6)%7));return t.toLocaleDateString('en-CA')}
+R.prog=()=>{const names=[...new Set(D.sessions.flatMap(s=>s.ex.filter(e=>!e.c).map(e=>e.n)))];
+$('#app').innerHTML=`<div class="card"><h3>Workouts per week</h3><canvas id="c1"></canvas></div><div class="card"><h3>Volume per exercise</h3><select id="ps" onchange="drawV()">${names.map(n=>`<option>${esc(n)}</option>`).join('')}</select><canvas id="c2"></canvas><p class="m">Volume = reps × weight, summed per session.</p></div>`;
+const W={};D.sessions.forEach(s=>{const k=wk(s.date);W[k]=(W[k]||0)+1});const ks=Object.keys(W).sort().slice(-12);chart('c1',ks.map(k=>k.slice(5)),ks.map(k=>W[k]),'workouts');drawV()};
+function drawV(){const n=($('#ps')||{}).value;const pts=D.sessions.filter(s=>s.ex.some(e=>e.n==n)).sort((a,b)=>a.date.localeCompare(b.date)).slice(-12).map(s=>[s.date.slice(5),s.ex.filter(e=>e.n==n).reduce((t,e)=>t+vol(e),0)]);chart('c2',pts.map(p=>p[0]),pts.map(p=>p[1]),'lb')}
+R.wt=()=>{const L=[...D.weights].sort((a,b)=>a.date.localeCompare(b.date));const f=L[0],l=L.at(-1);
+$('#app').innerHTML=`<div class="card"><div class="row"><div><label>Date</label><input type="date" id="wd" value="${today()}"></div><div><label>Weight (lb)</label><input id="wv" inputmode="decimal"></div></div><button style="margin-top:10px" onclick="addW()">Log weight</button></div>
+${L.length>1?`<div class="card"><b>${(l.w-f.w>0?'+':'')+(l.w-f.w).toFixed(1)} lb</b> <span class="m">since ${f.date}</span></div>`:''}
+<div class="card"><h3>Trend</h3><canvas id="c3"></canvas></div>${[...L].reverse().map(x=>`<div class="card row"><span>${x.date}</span><b>${x.w} lb</b><button class="x" style="flex:0" onclick="D.weights=D.weights.filter(y=>y.id!=${x.id});save();R.wt()">✕</button></div>`).join('')}`;
+const s=L.slice(-20);chart('c3',s.map(x=>x.date.slice(5)),s.map(x=>x.w),'lb')};
+function addW(){const w=parseFloat($('#wv').value);if(!w)return;D.weights.push({id:Date.now(),date:$('#wd').value,w});save();R.wt()}
+R.more=()=>{$('#app').innerHTML=`<div class="card"><h3>Backup</h3><p class="m">Your data lives only on this device. Export regularly.</p><button onclick="exp()">Export JSON</button><label>Import JSON (replaces current data)</label><input type="file" accept=".json,application/json" onchange="imp(this.files[0])"></div>
+<div class="card m">${D.sessions.length} workouts · ${D.library.length} exercises · ${D.weights.length} weigh-ins</div>`};
+function exp(){const b=new Blob([JSON.stringify(D,null,1)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(b);a.download=`workout-journal-${today()}.json`;a.click()}
+function imp(f){if(!f)return;f.text().then(t=>{const j=JSON.parse(t);if(!j.sessions||!j.library)throw 0;if(confirm('Replace all current data?')){D={weights:[],...j};save();alert('Imported');go('hist')}}).catch(()=>alert('Not a valid backup file'))}
+nav();R.log();if('serviceWorker'in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>
